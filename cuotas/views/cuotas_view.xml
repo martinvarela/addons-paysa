@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="cuotas_tree" model="ir.ui.view">
+            <field name="name">cuotas.tree</field>
+            <field name="model">cuotas</field>
+            <field name="arch" type="xml">
+                <tree string="Cuotas" editable="bottom">
+                    <field name="jugador_id"/>
+                    <field name="monto"/>
+                    <field name="fecha_pago"/>
+                    <field name="name"/>
+                    <field name="plantel" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="cuotas_search" model="ir.ui.view">
+            <field name="name">cuotas.search</field>
+            <field name="model">cuotas</field>
+            <field name="arch" type="xml">
+                <search string="Cuotas">
+                    <field name="jugador_id" string="Jugador"/>
+                    <filter string="Mayores" name="Mayores" domain="[('plantel', '=', 'm')]"/>
+                    <filter string="Pre Senior" name="Pre Senior" domain="[('plantel', '=', 'p')]"/>
+                    <separator/>
+                    <group expand="0" string="Agrupar Por">
+                        <filter string="Jugador" name="Jugador" context="{'group_by':'jugador_id'}"/>
+                        <filter string="Plantel" name="Plantel" context="{'group_by':'plantel'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="cuotas_action" model="ir.actions.act_window">
+            <field name="name">Cuotas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cuotas</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="cuotas_categ" name="Cuotas y pagos" parent="jugador.jugadores_root" sequence="5"/>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="cuotas_menu" name="Cuotas" parent="cuotas_categ" action="cuotas_action" sequence="1"/>
+
+
+
+        <record id="otros_pagos_tree" model="ir.ui.view">
+            <field name="name">otros_pagos.tree</field>
+            <field name="model">otros_pagos</field>
+            <field name="arch" type="xml">
+                <tree string="Otros pagos" editable="bottom">
+                    <field name="jugador_id"/>
+                    <field name="monto"/>
+                    <field name="fecha_pago"/>
+                    <field name="name"/>
+                    <field name="descripcion"/>
+                    <field name="plantel" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="otros_pagos_search" model="ir.ui.view">
+            <field name="name">otros_pagos.search</field>
+            <field name="model">otros_pagos</field>
+            <field name="arch" type="xml">
+                <search string="Otros pagos">
+                    <field name="jugador_id" string="Jugador"/>
+                    <filter string="Mayores" name="Mayores" domain="[('plantel', '=', 'm')]"/>
+                    <filter string="Pre Senior" name="Pre Senior" domain="[('plantel', '=', 'p')]"/>
+                    <separator/>
+                    <group expand="0" string="Agrupar Por">
+                        <filter string="Jugador" name="Jugador" context="{'group_by':'jugador_id'}"/>
+                        <filter string="Plantel" name="Plantel" context="{'group_by':'plantel'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="otros_pagos_action" model="ir.actions.act_window">
+            <field name="name">Otros pagos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">otros_pagos</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="otros_pagos_menu" name="Otros pagos" parent="cuotas_categ" action="otros_pagos_action" sequence="2"/>
+
+        <record id="jugador_form_cuotas" model="ir.ui.view">
+            <field name="name">jugador.form.cuotas</field>
+            <field name="model">jugador</field>
+            <field name="inherit_id" ref="jugador.jugador_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Cuotas y pagos">
+                        <group string="Cuotas y pagos">
+                            <group string="Cuotas" colspan="4">
+                                <field name="cuotas_ids" nolabel="1">
+                                    <tree string="Otros pagos" editable="bottom">
+                                        <field name="monto"/>
+                                        <field name="fecha_pago"/>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group string="Otros pagos" colspan="4">
+                                <field name="otros_pagos_ids" nolabel="1">
+                                    <tree string="Otros pagos" editable="bottom">
+                                        <field name="monto"/>
+                                        <field name="fecha_pago"/>
+                                        <field name="name"/>
+                                        <field name="descripcion"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+
+        <record id="contabilidad_mayores_tree" model="ir.ui.view">
+            <field name="name">contabilidad_mayores.tree</field>
+            <field name="model">contabilidad_mayores</field>
+            <field name="arch" type="xml">
+                <tree string="Contabilidad Mayores">
+                    <field name="name"/>
+                    <field name="saldo"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="contabilidad_mayores_form" model="ir.ui.view">
+            <field name="name">contabilidad_mayores.form</field>
+            <field name="model">contabilidad_mayores</field>
+            <field name="arch" type="xml">
+                <form string="Contabilidad Mayores">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="button_box">
+                            <!-- Put here related buttons -->
+                        </div>
+                        <group>
+                            <group string="Ingresos y Egresos" colspan="4">
+                                <field name="lineas_ids" nolabel="1">
+                                    <tree string="Ingresos - Egresos" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="fecha"/>
+                                        <field name="monto" sum="Monto Total"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Ingresos jugadores">
+                                <field name="total_cuotas"/>
+                                <field name="total_otros_pagos"/>
+                            </group>
+                            <group string="Saldo">
+                                <h1><field name="saldo" nolabel="1"/></h1>
+                            </group>
+                        </group>
+                    </sheet>
+                    <!--<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>-->
+                </form>
+            </field>
+        </record>
+
+
+        <record id="contabilidad_mayores_action" model="ir.actions.act_window">
+            <field name="name">Contabilidad Mayores</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">contabilidad_mayores</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+                <!-- This Menu Item Must have a parent -->
+        <menuitem id="contabilidad_categ" name="Contabilidad" parent="jugador.jugadores_root" sequence="10"/>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="contabilidad_mayores_menu" name="Contabilidad Mayores" parent="contabilidad_categ" action="contabilidad_mayores_action" sequence="10"/>
+
+
+        <record id="contabilidad_presenior_tree" model="ir.ui.view">
+            <field name="name">contabilidad_presenior.tree</field>
+            <field name="model">contabilidad_presenior</field>
+            <field name="arch" type="xml">
+                <tree string="Contabilidad Pre Senior">
+                    <field name="name"/>
+                    <field name="saldo"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="contabilidad_presenior_form" model="ir.ui.view">
+            <field name="name">contabilidad_presenior.form</field>
+            <field name="model">contabilidad_presenior</field>
+            <field name="arch" type="xml">
+                <form string="Contabilidad Pre Senior">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="button_box">
+                            <!-- Put here related buttons -->
+                        </div>
+                        <group>
+                            <group string="Ingresos y Egresos" colspan="4">
+                                <field name="lineas_ids" nolabel="1">
+                                    <tree string="Ingresos - Egresos" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="fecha"/>
+                                        <field name="monto" sum="Monto Total"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Ingresos jugadores">
+                                <field name="total_cuotas"/>
+                                <field name="total_otros_pagos"/>
+                            </group>
+                            <group string="Saldo">
+                                <h1><field name="saldo" nolabel="1"/></h1>
+                            </group>
+                        </group>
+                    </sheet>
+                    <!--<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>-->
+                </form>
+            </field>
+        </record>
+
+
+        <record id="contabilidad_presenior_action" model="ir.actions.act_window">
+            <field name="name">Contabilidad Pre Senior</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">contabilidad_presenior</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+
+        <menuitem id="contabilidad_presenior_menu" name="Contabilidad Pre Senior" parent="contabilidad_categ" action="contabilidad_presenior_action" sequence="20"/>
+
+    </data>
+</openerp>

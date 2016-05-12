@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="jugador_tree" model="ir.ui.view">
+            <field name="name">jugador.tree</field>
+            <field name="model">jugador</field>
+            <field name="arch" type="xml">
+                <tree string="Jugador">
+                    <field name="name"/>
+                    <field name="plantel"/>
+                    <field name="posicion"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="jugador_form" model="ir.ui.view">
+            <field name="name">jugador.form</field>
+            <field name="model">jugador</field>
+            <field name="arch" type="xml">
+                <form string="Jugador">
+                    <sheet>
+                        <field name="image_medium" widget='image' class="oe_left oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="button_box">
+                            <!-- Put here related buttons -->
+                        </div>
+                        <notebook>
+                            <page string="Datos">
+                                <group>
+                                    <group string="Datos Jugador">
+                                        <field name="posicion"/>
+                                        <field name="plantel"/>
+                                        <field name="vencimiento_carne"/>
+                                        <field name="vencimiento_ficha_medica"/>
+                                        <field name="ultimo_examen"/>
+                                        <field name="website_published"/>
+                                    </group>
+                                    <group string="Información Personal">
+                                        <field name="fecha_nacimiento"/>
+                                        <field name="telefono"/>
+                                        <field name="direccion"/>
+                                    </group>
+                                    <!--<group>
+                                        <field name="user_id" on_change="onchange_user(user_id)" string="Related User"
+                                            context="{'default_groups_ref': ['base.group_user']}"/>
+                                    </group>-->
+                                </group>
+                                <field name="notes" placeholder="Otra Información ..." colspan="4"/>
+                            </page>
+                            <!--<page string="Configuración" groups="">
+                                <group>
+                                    <group string="Active" name="active_group">
+                                        <field name="active"/>
+                                    </group>
+                                </group>
+                            </page>-->
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="jugador_search" model="ir.ui.view">
+            <field name="name">jugador.search</field>
+            <field name="model">jugador</field>
+            <field name="arch" type="xml">
+                <search string="Jugadores">
+                    <field name="name" string="Nombre"/>
+                    <filter string="Mayores" name="Mayores" domain="[('plantel', '=', 'm')]"/>
+                    <filter string="Pre Senior" name="Pre Senior" domain="[('plantel', '=', 'p')]"/>
+                    <separator/>
+                    <group expand="0" string="Agrupar Por">
+                        <filter string="Plantel" name="Plantel" context="{'group_by':'plantel'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="jugador_action" model="ir.actions.act_window">
+            <field name="name">Jugador</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">jugador</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
+        <menuitem id="jugadores_root" name="Jugadores" sequence="1"/>
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="jugadores_categ" name="Jugadores" parent="jugadores_root" sequence="1"/>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="jugadores_menu" name="Jugadores" parent="jugadores_categ" action="jugador_action" sequence="1"/>
+
+        <record id="cuerpo_tecnico_tree" model="ir.ui.view">
+            <field name="name">cuerpo_tecnico.tree</field>
+            <field name="model">cuerpo_tecnico</field>
+            <field name="arch" type="xml">
+                <tree string="Cuerpo Tecnico">
+                    <field name="name"/>
+                    <field name="plantel"/>
+                    <field name="puesto"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="cuerpo_tecnico_form" model="ir.ui.view">
+            <field name="name">cuerpo_tecnico.form</field>
+            <field name="model">cuerpo_tecnico</field>
+            <field name="arch" type="xml">
+                <form string="Cuerpo Tecnico">
+                    <sheet>
+                        <field name="image_medium" widget='image' class="oe_left oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="button_box">
+                            <!-- Put here related buttons -->
+                        </div>
+                        <notebook>
+                            <page string="Datos">
+                                <group>
+                                    <group>
+                                        <field name="plantel"/>
+                                        <field name="puesto"/>
+                                        <field name="website_published"/>
+                                    </group>
+                                </group>
+                                <field name="notes" placeholder="Otra Información ..." colspan="4"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="cuerpo_tecnico_search" model="ir.ui.view">
+            <field name="name">cuerpo_tecnico.search</field>
+            <field name="model">cuerpo_tecnico</field>
+            <field name="arch" type="xml">
+                <search string="Cuerpo Tecnico">
+                    <field name="name" string="Nombre"/>
+                    <filter string="Mayores" name="Mayores" domain="[('plantel', 'in', ['m','myp'])]"/>
+                    <filter string="Pre Senior" name="Pre Senior" domain="[('plantel', 'in', ['p','myp'])]"/>
+                    <separator/>
+                    <group expand="0" string="Agrupar Por">
+                        <filter string="Plantel" name="Plantel" context="{'group_by':'plantel'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="cuerpo_tecnico_action" model="ir.actions.act_window">
+            <field name="name">Cuerpo técnico</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cuerpo_tecnico</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="cuerpo_tecnico_menu" name="Cuerpo técnico" parent="jugadores_categ" action="cuerpo_tecnico_action" sequence="2"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cuotas_jugador,cuotas jugador,model_cuotas,jugador.group_jugador,1,0,0,0
+access_cuotas_dt,cuotas dt,model_cuotas,jugador.group_dt,1,0,0,0
+access_cuotas_tesorero,cuotas tesorero,model_cuotas,jugador.group_tesorero,1,1,1,1
+access_otros_pagos_jugador,otros_pagos jugador,model_otros_pagos,jugador.group_jugador,1,0,0,0
+access_otros_pagos_dt,otros_pagos dt,model_otros_pagos,jugador.group_dt,1,0,0,0
+access_otros_pagos_tesorero,otros_pagos tesorero,model_otros_pagos,jugador.group_tesorero,1,1,1,1
+access_contabilidad_mayores_tesorero,contabilidad_mayores tesorero,model_contabilidad_mayores,jugador.group_tesorero,1,1,1,1
+access_contabilidad_mayores_lineas_tesorero,contabilidad_mayores_lineas tesorero,model_contabilidad_mayores_lineas,jugador.group_tesorero,1,1,1,1
+access_contabilidad_presenior_tesorero,contabilidad_presenior tesorero,model_contabilidad_presenior,jugador.group_tesorero,1,1,1,1
+access_contabilidad_presenior_lineas_tesorero,contabilidad_presenior_lineas tesorero,model_contabilidad_presenior_lineas,jugador.group_tesorero,1,1,1,1

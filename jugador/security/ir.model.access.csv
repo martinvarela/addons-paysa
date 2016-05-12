@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_jugador_public,jugador public,model_jugador,base.group_public,1,0,0,0
+access_jugador_jugador,jugador jugador,model_jugador,group_jugador,1,0,0,0
+access_jugador_dt,jugador dt,model_jugador,group_dt,1,1,1,1
+access_jugador_tesorero,jugador tesorero,model_jugador,group_tesorero,1,1,1,1
+access_cuerpo_tecnico_public,cuerpo_tecnico public,model_cuerpo_tecnico,base.group_public,1,0,0,0
+access_cuerpo_tecnico_jugador,cuerpo_tecnico jugador,model_cuerpo_tecnico,group_jugador,1,0,0,0
+access_cuerpo_tecnico_dt,cuerpo_tecnico dt,model_cuerpo_tecnico,group_dt,1,1,1,1
+access_cuerpo_tecnico_tesorero,cuerpo_tecnico tesorero,model_cuerpo_tecnico,group_tesorero,1,1,1,1

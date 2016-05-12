@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="socios_tree" model="ir.ui.view">
+            <field name="name">socios.tree</field>
+            <field name="model">socios</field>
+            <field name="arch" type="xml">
+                <tree string="Socios">
+                    <field name="nro_socio"/>
+                    <field name="nombre"/>
+                    <field name="jugador_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="socios_form" model="ir.ui.view">
+            <field name="name">socios.form</field>
+            <field name="model">socios</field>
+            <field name="arch" type="xml">
+                <form string="Socios">
+                    <header>
+                        <field name="state" widget="statusbar" clickable="True"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <!--<label for="name" class="oe_edit_only"/>-->
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                            <group string="Datos">
+                                <group>
+                                    <field name="nro_socio"/>
+                                    <field name="nombre"/>
+                                    <field name="jugador_id"/>
+                                </group>
+                                <group>
+                                    <field name="direccion"/>
+                                    <field name="cedula"/>
+                                    <field name="celular"/>
+                                    <field name="mail"/>
+                                </group>
+                            </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="socios_search" model="ir.ui.view">
+            <field name="name">socios.search</field>
+            <field name="model">socios</field>
+            <field name="arch" type="xml">
+               <search string="Socios">
+                    <field name="nro_socio"/>
+                    <field name="nombre"/>
+                    <field name="jugador_id"/>
+                    <field name="state"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter string="Jugador" name="jugador_id" context="{'group_by':'jugador_id'}"/>
+                        <filter string="Estado" name="state" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="socios_action" model="ir.actions.act_window">
+            <field name="name">Socios</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">socios</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+    <!-- This Menu Item Must have a parent -->
+    <menuitem id="socios_categ" name="Socios" parent="jugador.jugadores_root" sequence="10"/>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="socios_menu" name="Socios" parent="socios_categ" action="socios_action" sequence="1"/>
+
+
+
+      <record id="jugador_form_socios" model="ir.ui.view">
+            <field name="name">jugador.form.socios</field>
+            <field name="model">jugador</field>
+            <field name="inherit_id" ref="jugador.jugador_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Socios">
+                        <group string="Socios" colspan="4">
+                            <field name="socios_ids" nolabel="1">
+                                <tree string="Socios" editable="bottom">
+                                    <field name="nro_socio"/>
+                                    <field name="nombre"/>
+                                    <field name="direccion"/>
+                                    <field name="cedula"/>
+                                    <field name="celular"/>
+                                    <field name="mail"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+    </data>
+</openerp>

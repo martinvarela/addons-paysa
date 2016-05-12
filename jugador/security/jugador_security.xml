@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate="0">
+        <record model="ir.module.category" id="module_jugador_category">
+            <field name="name">Jugador</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="group_jugador" model="res.groups">
+            <field name="name">Jugador</field>
+            <field name="category_id" ref="module_jugador_category"/>
+        </record>
+
+        <record id="group_dt" model="res.groups">
+            <field name="name">DT</field>
+            <field name="category_id" ref="module_jugador_category"/>
+        </record>
+
+        <record id="group_tesorero" model="res.groups">
+            <field name="name">Tesorero</field>
+            <field name="category_id" ref="module_jugador_category"/>
+        </record>
+    </data>
+
+</openerp>

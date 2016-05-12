@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Page -->
+
+        <template id="plantel_mayores" name="Plantel Mayores" page="True" priority="50">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <section class="mt16 mb16">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12 text-center mt0 mb0">
+                                        <h2>Plantel Mayores</h2>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <img alt="Odoo CMS - a big picture" class="img img-responsive shadow"
+                                             src="/jugador/static/src/img/pay_mayores.jpg"
+                                             style="margin: 0px auto; animation-play-state: paused; transition: none"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="oe_structure"></div>
+                    <section class="container">
+                        <div class="col-sm-12 text-center"
+                             t-if="len(arqueros_ids) or len(defensas_ids) or len(mediocampistas_ids) or len(delanteros_ids)">
+                            <h2>Jugadores</h2>
+                        </div>
+                        <div t-foreach="arqueros_ids" t-as="jugador"
+                             class="col-sm-3 col-lg-2 mt16 text-center colsize">
+                            <t t-call="website.publish_management">
+                                <t t-set="object" t-value="jugador"/>
+                            </t>
+                            <div class="clearfix"/>
+                            <img t-att-src="website.image_url(jugador, 'image_medium')"
+                                 class="img shadow img-rounded"/>
+                            <div class="mt8">
+                                <strong t-field="jugador.name"></strong>
+                            </div>
+                            <div t-field="jugador.posicion"/>
+                            <div t-field="jugador.notes" class="text-muted mt16"/>
+                        </div>
+                        <div t-foreach="defensas_ids" t-as="jugador"
+                             class="col-sm-3 col-lg-2 mt16 text-center colsize">
+                            <t t-call="website.publish_management">
+                                <t t-set="object" t-value="jugador"/>
+                            </t>
+                            <div class="clearfix"/>
+                            <img t-att-src="website.image_url(jugador, 'image_medium')"
+                                 class="img shadow img-rounded"/>
+                            <div class="mt8">
+                                <strong t-field="jugador.name"></strong>
+                            </div>
+                            <div t-field="jugador.posicion"/>
+                            <div t-field="jugador.notes" class="text-muted mt16"/>
+                        </div>
+                        <div t-foreach="mediocampistas_ids" t-as="jugador"
+                             class="col-sm-3 col-lg-2 mt16 text-center colsize">
+                            <t t-call="website.publish_management">
+                                <t t-set="object" t-value="jugador"/>
+                            </t>
+                            <div class="clearfix"/>
+                            <img t-att-src="website.image_url(jugador, 'image_medium')"
+                                 class="img shadow img-rounded"/>
+                            <div class="mt8">
+                                <strong t-field="jugador.name"></strong>
+                            </div>
+                            <div t-field="jugador.posicion"/>
+                            <div t-field="jugador.notes" class="text-muted mt16"/>
+                        </div>
+                        <div t-foreach="delanteros_ids" t-as="jugador"
+                             class="col-sm-3 col-lg-2 mt16 text-center colsize">
+                            <t t-call="website.publish_management">
+                                <t t-set="object" t-value="jugador"/>
+                            </t>
+                            <div class="clearfix"/>
+                            <img t-att-src="website.image_url(jugador, 'image_medium')"
+                                 class="img shadow img-rounded"/>
+                            <div class="mt8">
+                                <strong t-field="jugador.name"></strong>
+                            </div>
+                            <div t-field="jugador.posicion"/>
+                            <div t-field="jugador.notes" class="text-muted mt16"/>
+                        </div>
+
+                    </section>
+
+                    <section class="container">
+                        <div class="col-sm-12 text-center"
+                             t-if="len(tecnicos_ids)">
+                            <h2>Cuerpo técnico</h2>
+                        </div>
+                        <div t-foreach="tecnicos_ids" t-as="cuerpo_tecnico"
+                             class="col-sm-3 col-lg-2 mt16 text-center colsize">
+                            <t t-call="website.publish_management">
+                                <t t-set="object" t-value="cuerpo_tecnico"/>
+                            </t>
+                            <div class="clearfix"/>
+                            <img t-att-src="website.image_url(cuerpo_tecnico, 'image_medium')"
+                                 class="img shadow img-rounded"/>
+                            <div class="mt8">
+                                <strong t-field="cuerpo_tecnico.name"></strong>
+                            </div>
+                            <div t-field="cuerpo_tecnico.puesto"/>
+                            <div t-field="cuerpo_tecnico.notes" class="text-muted mt16"/>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+
+        <template id="plantel_presenior" name="Plantel Presenior" page="True" priority="50">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <section class="mt16 mb16">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12 text-center mt0 mb0">
+                                        <h2>Plantel Pre Senior</h2>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <img alt="Odoo CMS - a big picture" class="img img-responsive shadow"
+                                             src="/jugador/static/src/img/pay_pre.jpg"
+                                             style="margin: 0px auto; animation-play-state: paused; transition: none"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="oe_structure"></div>
+                    <section class="container">
+                        <div class="col-sm-12 text-center"
+                             t-if="len(arqueros_ids) or len(defensas_ids) or len(mediocampistas_ids) or len(delanteros_ids)">
+                            <h2>Jugadores</h2>
+                        </div>
+                        <div t-foreach="arqueros_ids" t-as="jugador"
+                             class="col-sm-3 col-lg-2 mt16 text-center colsize">
+                            <t t-call="website.publish_management">
+                                <t t-set="object" t-value="jugador"/>
+                            </t>
+                            <div class="clearfix"/>
+                            <img t-att-src="website.image_url(jugador, 'image_medium')"
+                                 class="img shadow img-rounded"/>
+                            <div class="mt8">
+                                <strong t-field="jugador.name"></strong>
+                            </div>
+                            <div t-field="jugador.posicion"/>
+                            <div t-field="jugador.notes" class="text-muted mt16"/>
+                        </div>
+                        <div t-foreach="defensas_ids" t-as="jugador"
+                             class="col-sm-3 col-lg-2 mt16 text-center colsize">
+                            <t t-call="website.publish_management">
+                                <t t-set="object" t-value="jugador"/>
+                            </t>
+                            <div class="clearfix"/>
+                            <img t-att-src="website.image_url(jugador, 'image_medium')"
+                                 class="img shadow img-rounded"/>
+                            <div class="mt8">
+                                <strong t-field="jugador.name"></strong>
+                            </div>
+                            <div t-field="jugador.posicion"/>
+                            <div t-field="jugador.notes" class="text-muted mt16"/>
+                        </div>
+                        <div t-foreach="mediocampistas_ids" t-as="jugador"
+                             class="col-sm-3 col-lg-2 mt16 text-center colsize">
+                            <t t-call="website.publish_management">
+                                <t t-set="object" t-value="jugador"/>
+                            </t>
+                            <div class="clearfix"/>
+                            <img t-att-src="website.image_url(jugador, 'image_medium')"
+                                 class="img shadow img-rounded"/>
+                            <div class="mt8">
+                                <strong t-field="jugador.name"></strong>
+                            </div>
+                            <div t-field="jugador.posicion"/>
+                            <div t-field="jugador.notes" class="text-muted mt16"/>
+                        </div>
+                        <div t-foreach="delanteros_ids" t-as="jugador"
+                             class="col-sm-3 col-lg-2 mt16 text-center colsize">
+                            <t t-call="website.publish_management">
+                                <t t-set="object" t-value="jugador"/>
+                            </t>
+                            <div class="clearfix"/>
+                            <img t-att-src="website.image_url(jugador, 'image_medium')"
+                                 class="img shadow img-rounded"/>
+                            <div class="mt8">
+                                <strong t-field="jugador.name"></strong>
+                            </div>
+                            <div t-field="jugador.posicion"/>
+                            <div t-field="jugador.notes" class="text-muted mt16"/>
+                        </div>
+                    </section>
+
+                    <section class="container">
+                        <div class="col-sm-12 text-center"
+                             t-if="len(tecnicos_ids)">
+                            <h2>Cuerpo técnico</h2>
+                        </div>
+                        <div t-foreach="tecnicos_ids" t-as="cuerpo_tecnico"
+                             class="col-sm-3 col-lg-2 mt16 text-center colsize">
+                            <t t-call="website.publish_management">
+                                <t t-set="object" t-value="cuerpo_tecnico"/>
+                            </t>
+                            <div class="clearfix"/>
+                            <img t-att-src="website.image_url(cuerpo_tecnico, 'image_medium')"
+                                 class="img shadow img-rounded"/>
+                            <div class="mt8">
+                                <strong t-field="cuerpo_tecnico.name"></strong>
+                            </div>
+                            <div t-field="cuerpo_tecnico.puesto"/>
+                            <div t-field="cuerpo_tecnico.notes" class="text-muted mt16"/>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+
+        <record id="menu_jugador" model="website.menu">
+            <field name="name">Plantel</field>
+            <field name="url"></field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">40</field>
+        </record>
+
+        <record id="menu_mayores" model="website.menu">
+            <field name="name">Mayores</field>
+            <field name="url">/page/plantel_mayores</field>
+            <field name="parent_id" ref="jugador.menu_jugador"/>
+            <field name="sequence" type="int">10</field>
+        </record>
+
+        <record id="menu_presenior" model="website.menu">
+            <field name="name">Pre Senior</field>
+            <field name="url">/page/plantel_presenior</field>
+            <field name="parent_id" ref="jugador.menu_jugador"/>
+            <field name="sequence" type="int">20</field>
+        </record>
+    </data>
+</openerp>

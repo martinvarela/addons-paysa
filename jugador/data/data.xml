@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- Pre loaded images -->
+
+        <record model="ir.attachment">
+            <field name="name">pay2_mayores</field>
+            <field name="datas_fname">pay2_mayores.jpg</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/jugador/static/src/img/pay2_mayores.jpg</field>
+        </record>
+
+        <record model="ir.attachment">
+            <field name="name">pay_may5</field>
+            <field name="datas_fname">pay_may5.jpg</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/jugador/static/src/img/pay_may5.jpg</field>
+        </record>
+
+        <record model="ir.attachment">
+            <field name="name">pay_mayores</field>
+            <field name="datas_fname">pay_mayores.jpg</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/jugador/static/src/img/pay_mayores.jpg</field>
+        </record>
+
+        <record model="ir.attachment">
+            <field name="name">pay_pre</field>
+            <field name="datas_fname">pay_pre.jpg</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/jugador/static/src/img/pay_pre.jpg</field>
+        </record>
+
+        <record model="ir.attachment">
+            <field name="name">pay_escudo</field>
+            <field name="datas_fname">escudo_pdu_univ.jpg</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/jugador/static/src/img/escudo_pdu_univ.jpg</field>
+        </record>
+
+    </data>
+</openerp>

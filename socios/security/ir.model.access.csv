@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_socios_jugador,socios jugador,model_socios,jugador.group_jugador,1,0,0,0
+access_socios_dt,socios dt,model_socios,jugador.group_dt,1,0,0,0
+access_socios_tesorero,socios tesorero,model_socios,jugador.group_tesorero,1,1,1,1

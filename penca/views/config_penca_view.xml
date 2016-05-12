@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <menuitem id="menu_penca_config" name="Configuracion Penca" parent="base.menu_administration" sequence="1"/>
+
+        <record model="ir.ui.view" id="view_equipos_form">
+            <field name="name">penca.equipo</field>
+            <field name="model">penca.equipo</field>
+            <field name="arch" type="xml">
+                <form string="Equipos">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="escudo" widget="image"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_equipos_tree">
+            <field name="name">penca.equipo</field>
+            <field name="model">penca.equipo</field>
+            <field name="arch" type="xml">
+                <tree string="Equipos">
+                    <field name="name"/>
+                    <field name="escudo" widget="image" height="25"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="config_equipos_form">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Equipos</field>
+            <field name="res_model">penca.equipo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_equipos_tree"/>
+        </record>
+
+        <menuitem action="config_equipos_form"
+                  id="menu_equipos_form"
+                  parent="menu_penca_config" sequence="1"/>
+
+
+        <record model="ir.ui.view" id="view_partidos_form">
+            <field name="name">penca.partido</field>
+            <field name="model">penca.partido</field>
+            <field name="arch" type="xml">
+                <form string="Partidos">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="fecha"/>
+                            <field name="equipo1_id"/>
+                            <field name="equipo2_id"/>
+                            <field name="esc1_related" widget="image"/>
+                            <field name="esc2_related" widget="image"/>
+                            <field name="goles_eq1"/>
+                            <field name="goles_eq2"/>
+                            <field name="finalizado"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_partidos_tree">
+            <field name="name">penca.partido</field>
+            <field name="model">penca.partido</field>
+            <field name="arch" type="xml">
+                <tree string="Partidos" editable="bottom">
+                    <field name="name"/>
+                    <field name="equipo1_id"/>
+                    <field name="equipo2_id"/>
+                    <field name="fecha"/>
+                    <field name="esc1_related" string="" widget="image" readonly="1" height="25"/>
+                    <field name="goles_eq1" string=""/>
+                    <field name="goles_eq2" string=""/>
+                    <field name="esc2_related" string="" widget="image" readonly="1" height="25"/>
+                    <field name="finalizado"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="config_partidos_form">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Partidos</field>
+            <field name="res_model">penca.partido</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_partidos_tree"/>
+        </record>
+
+        <menuitem action="config_partidos_form"
+                  id="menu_partidos_form"
+                  parent="menu_penca_config" sequence="2"/>
+
+        <!-- Reglamento -->
+        <record id="penca_reglas_form" model="ir.ui.view">
+            <field name="name">penca.reglas.form</field>
+            <field name="model">penca.reglas</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form create="false" save="false" string="Reglamento" version="7.0">
+                    <header>
+                        <separator colspan="5" string="*  Reglamento  *"/>
+                    </header>
+                    <sheet>
+                        <div>
+                            <h2>
+                                <label string="Puntuación"/>
+                            </h2>
+                            <p>
+                                <h3>Partidos</h3>
+                                <UL type="disc">
+                                    <LI>Resultado exacto:
+                                        <b>6 puntos</b>
+                                    </LI>
+                                    <LI>Resultado + cantidad de goles de 1 equipo:
+                                        <b>4 puntos</b>
+                                    </LI>
+                                    <LI>Resultado + diferencia de goles:
+                                        <b>4 puntos</b>
+                                    </LI>
+                                    <LI>Resultado:
+                                        <b>3 puntos</b>
+                                    </LI>
+                                    <LI>Cantidad de goles de 1 equipo:
+                                        <b>1 punto</b>
+                                    </LI>
+                                </UL>
+                                <i>* NOTA:</i>Para la etapa eliminatoria se tiene en cuenta el resultado al finalizar
+                                los 90 minutos reglamentarios (sin alargue ni penales).
+                                <BR/>
+                                <BR/>
+                                Ejemplo 1: Brasil 3 - Croacia 1
+                                <BR/>
+                                - Quien pronosticó Brasil 3 - Croacia 1, obtiene 6 puntos por ese partido.
+                                <BR/>
+                                - Quien pronosticó Brasil 3 - Croacia 0 ó Brasil 2 - Croacia 1, obtiene 4 puntos por ese
+                                partido.
+                                <BR/>
+                                - Quien pronosticó Brasil 2 - Croacia 0, obtiene 4 puntos por ese partido (resultado +
+                                diferencia de goles).
+                                <BR/>
+                                - Quien pronosticó Brasil 1 - Croacia 0, obtiene 3 puntos por ese partido.
+                                <BR/>
+                                - Quien pronosticó Brasil 0 - Croacia 1 ó Brasil 3 - Croacia 4, obtiene 1 punto por ese
+                                partido.
+                                <BR/>
+                                - Quien pronosticó Brasil 0 - Croacia 2, obtiene 0 puntos por ese partido.
+                                <BR/>
+                                <BR/>
+                                Ejemplo 2: Chile 1 - Australia 1
+                                <BR/>
+                                - Quien pronosticó Chile 1 - Australia 1, obtiene 6 puntos por ese partido.
+                                <BR/>
+                                - Quien pronosticó Chile 2 - Australia 2, obtiene 4 puntos por ese partido (resultado +
+                                diferencia de goles).
+                                <BR/>
+                                <BR/>
+                                <h3>Campeón</h3>
+                                <UL type="disc">
+                                    <LI>Acertar el equipo campeón:
+                                        <b>20 puntos</b>
+                                    </LI>
+                                </UL>
+                                <BR/>
+                                <h3>Goleador de Mundial</h3>
+                                <UL type="disc">
+                                    <LI>Acertar el goleador del mundial:
+                                        <b>15 puntos</b>
+                                        <BR/>
+                                        (Si más de un jugador queda como goleador, se dan los puntos a todos)
+                                    </LI>
+                                </UL>
+                                <i>* NOTA:</i>La fecha límite para completar los resultados vence a las 23:59hrs del dia
+                                anterior a cada partido. Para el campeón y goleador la fecha límite es el 11/06 a las
+                                23:59hrs.
+                                <BR/>
+                                <BR/>
+                            </p>
+                            <h2>
+                                <label string="Premios"/>
+                            </h2>
+                            <ul>
+                                <li><b>1°</b>: $3000 + camiseta Uruguay Puma 2014
+                                </li>
+                                <li><b>2°</b>: $1500 + camiseta Uruguay Puma 2014
+                                </li>
+                                <li><b>3°</b>: $500 + camiseta Uruguay Puma 2014
+                                </li>
+                                <li><b>4°</b>: Camiseta Uruguay Puma 2014
+                                </li>
+                            </ul>
+
+                            <b>En caso de empate</b>, el ganador será elegido de la siguiente manera:
+                            <ol>
+                                <li>Ganará el que acierte el campeón</li>
+                                <li>Ganará el que acierte el goleador</li>
+                                <li>Ganará el que acierte mayor cantidad de resultados exactos</li>
+                                <li>Ganará el que acierte mayor cantidad de resultados</li>
+                                <li>En caso de subsistir el empate se repartirán los premios de igual manera entre las
+                                    posiciones igualadas
+                                </li>
+                            </ol>
+
+                            <h2>
+                                <label string="Costo"/>
+                            </h2>
+                            <ul>
+                                <li>El costo de participación por penca es de
+                                    <b>$150</b>
+                                </li>
+                            </ul>
+                            <BR/>
+                            <b>Ante cualquier duda enviar mail a
+                                <a href="mailto:pencapaysa2014@gmail.com">pencapaysa2014@gmail.com</a>
+                            </b>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="reglas_action" model="ir.actions.act_window">
+            <field name="name">Reglamento</field>
+            <field name="res_model">penca.reglas</field>
+            <field name="view_type">form</field>
+            <field name="target">inline</field>
+            <field name="view_id" ref="penca_reglas_form"/>
+        </record>
+
+        <menuitem id="menu_reglamento" name="Reglamento" parent="menu_penca_penca" sequence="1"/>
+        <menuitem id="penca_reglas" name="Reglamento" parent="menu_reglamento" action="reglas_action"/>
+
+
+        <record model="ir.ui.view" id="view_posiciones_form">
+            <field name="name">penca.reglas_pos</field>
+            <field name="model">penca.reglas</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form create="false" save="false" string="Posiciones" version="7.0">
+                    <header>
+                        <separator colspan="5" string="* Posiciones *"/>
+                    </header>
+                    <sheet>
+                        <button name="act_puntajes" string="Actualizar Puntajes" type="object"
+                                groups="base.group_no_one"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="posiciones_action">
+            <field name="name">Posiciones</field>
+            <field name="res_model">penca.reglas</field>
+            <field name="view_type">form</field>
+            <field name="target">inline</field>
+            <field name="view_id" ref="view_posiciones_form"/>
+        </record>
+
+        <menuitem action="posiciones_action"
+                  id="menu_posiciones_form"
+                  parent="menu_penca_config" sequence="4"/>
+
+        <record model="ir.ui.view" id="view_posiciones_tree">
+            <field name="name">penca.posiciones</field>
+            <field name="model">penca.posiciones</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree create="false" save="false" string="Posiciones" version="7.0">
+                    <field name="name"/>
+                    <field name="puntos"/>
+                    <field name="campeon_id"/>
+                    <field name="goleador_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="posiciones_action_list">
+            <field name="name">Posiciones</field>
+            <field name="res_model">penca.posiciones</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <!--<field name="target">inline</field>-->
+            <field name="view_id" ref="view_posiciones_tree"/>
+        </record>
+
+        <menuitem id="menu_posiciones" name="Posiciones" parent="menu_penca_penca" sequence="3"/>
+        <menuitem action="posiciones_action_list" id="menu_posiciones_list" parent="menu_posiciones"/>
+
+        <record model="ir.ui.view" id="view_camp_gol_form">
+            <field name="name">penca.campeon_goleador</field>
+            <field name="model">penca.campeon_goleador</field>
+            <field name="arch" type="xml">
+                <form string="Campeon y Goleador">
+                    <sheet>
+                        <group>
+                            <field name="campeon_id"/>
+                            <field name="goleador_ids"/>
+                            <field name="fin"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="camp_gol_action">
+            <field name="name">Campeon y Goleador</field>
+            <field name="res_model">penca.campeon_goleador</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_camp_gol_form"/>
+        </record>
+
+        <menuitem action="camp_gol_action" id="menu_camp_gol" parent="menu_penca_config" sequence="3"/>
+
+        <record model="ir.ui.view" id="view_goleadores_form">
+            <field name="name">penca.goleador</field>
+            <field name="model">penca.goleador</field>
+            <field name="arch" type="xml">
+                <form string="Goleadores" version="7.0">
+                    <sheet>
+                        <group colspan="1">
+                            <field name="foto" widget="image" nolabel="1"/>
+                        </group>
+                        <group colspan="3">
+                            <field name="name"/>
+                            <field name="goles"/>
+                            <field name="equipo_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_goleadores_tree">
+            <field name="name">penca.goleador</field>
+            <field name="model">penca.goleador</field>
+            <field name="arch" type="xml">
+                <tree string="Goleadores">
+                    <field name="name"/>
+                    <field name="foto" widget="image" height="25"/>
+                    <field name="goles"/>
+                    <field name="equipo_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="config_goleadores_tree">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Goleadores</field>
+            <field name="res_model">penca.goleador</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_goleadores_tree"/>
+        </record>
+
+        <menuitem id="menu_goleadores" name="Goleadores" parent="menu_penca_penca" sequence="4"/>
+        <menuitem id="penca_goleador" name="Goleadores" parent="menu_goleadores" action="config_goleadores_tree"/>
+
+        <!--        <menuitem action="config_goleadores_tree"
+                          id="menu_gloeadores_tree"
+                          parent="menu_penca_config" sequence="7"/>
+        -->
+
+    </data>
+
+</openerp>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <menuitem id="menu_penca_penca" name="Penca" sequence="1"/>
+
+        <menuitem id="menu_penca_pronostico" name="Penca" parent="menu_penca_penca" sequence="2"/>
+
+        <record model="ir.ui.view" id="view_penca_penca_form">
+            <field name="name">penca.penca</field>
+            <field name="model">penca.penca</field>
+            <field name="arch" type="xml">
+                <form string="Penca">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="user_id" readonly="1"/>
+                                <field name="campeon_id" widget="selection" attrs="{'readonly':[('camp_gol_edit','!=',True)]}"
+                                       domain="[('name','not ilike','['),('name','not ilike','2'),('name','not ilike','GAN'),('name','not ilike','PER')]"/>
+                                <field name="goleador_id" attrs="{'readonly':[('camp_gol_edit','!=',True)]}"/>
+                            </group>
+                            <group>
+                                <field name="puntos_total"/>
+                                <field name="pts_campeon" readonly="1"/>
+                                <field name="pts_goleador" readonly="1"/>
+                                <field name="camp_gol_edit" invisible="1"/>
+                            </group>
+                            <group string="Partidos" colspan="4">
+                                <field name="resultado_ids" colspan="4" nolabel="1">
+                                    <tree string="Partidos" editable="bottom" create="false" delete="false">
+                                        <field name="editable" invisible="1"/>
+                                        <field name="partido_id" readonly="1"/>
+                                        <field name="fecha_related" readonly="1"/>
+                                        <field name="esc1_rel" readonly="1" widget="image" string="" height="25"/>
+                                        <field name="goles1" string="" attrs="{'readonly':[('editable','!=',True)]}"/>
+                                        <field name="goles2" string="" attrs="{'readonly':[('editable','!=',True)]}"/>
+                                        <field name="esc2_rel" readonly="1" widget="image" string="" height="25"/>
+                                        <field name="puntos" readonly="1" string="Pts"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_penca_penca_tree">
+            <field name="name">penca.penca</field>
+            <field name="model">penca.penca</field>
+            <field name="arch" type="xml">
+                <tree string="Penca">
+                    <field name="user_id"/>
+                    <field name="puntos_total"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_penca_penca_form">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Penca</field>
+            <field name="res_model">penca.penca</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_penca_penca_tree"/>
+        </record>
+
+        <menuitem id="menu_penca_pronostico1" action="action_penca_penca_form" name="Mi Penca" parent="menu_penca_pronostico"
+                  sequence="1"/>
+
+    </data>
+</openerp>
