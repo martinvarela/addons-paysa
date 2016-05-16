@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_penca_public,penca public,model_penca_penca,base.group_public,1,0,0,0
+access_penca_resultado_public,penca_resultado public,model_penca_resultado,base.group_public,1,0,0,0
+access_penca_usuario,penca usuario,model_penca_penca,group_usuario_penca,1,1,0,0
+access_penca_resultado_usuario,penca_resultado usuario,model_penca_resultado,group_usuario_penca,1,1,0,0
+access_penca_admin,penca admin,model_penca_penca,group_admin_penca,1,1,1,1
+access_penca_resultado_admin,penca_resultado admin,model_penca_resultado,group_admin_penca,1,1,1,1

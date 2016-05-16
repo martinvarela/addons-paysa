@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Page -->
+
+        <template id="penca_posiciones" name="Posiciones Penca" page="True" priority="50">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <section class="mt16 mb16">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12 text-center mt0 mb0">
+                                        <h2>Posiciones Penca</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="oe_structure">
+                        <section class="mb16">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-5 text-center">
+                                        <h2>Posiciones</h2>
+                                    </div>
+                                    <div class="col-md-4 text-center col-md-offset-3">
+                                        <h2>Goleadores</h2>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5 mt16 mb16">
+                                        <div class="row">
+                                            <table class="table table-striped table-condensed">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nombre</th>
+                                                        <th>Puntos</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="penca_ids" t-as="penca">
+                                                        <tr>
+                                                            <td>
+                                                                <span t-field="penca.user_id.name"/>
+                                                            </td>
+                                                            <td>
+                                                                <strong t-if="penca.puntos_total"
+                                                                        t-field="penca.puntos_total"/>
+                                                                <strong t-if="not penca.puntos_total">0</strong>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-md-offset-3 mt8 mb8">
+                                        <div class="row">
+                                            <table class="table table-striped table-condensed">
+                                                <!--<thead>
+                                                    <tr>
+                                                        <th>Nombre</th>
+                                                        <th>Puntos</th>
+                                                    </tr>
+                                                </thead>-->
+                                                <tbody>
+                                                    <t t-foreach="goleador_ids" t-as="goleador">
+                                                        <tr>
+                                                            <td style="width: 76px;">
+                                                                <span t-field="goleador.foto"
+                                                                      t-field-options='{"widget": "image", "class": "img-rounded", "style": "width:64px"}'/>
+                                                            </td>
+                                                            <td style="vertical-align: middle;">
+                                                                <strong t-field="goleador.name"/>
+                                                            </td>
+                                                            <td style="vertical-align: middle; width: 44px;">
+                                                                <strong t-field="goleador.goles"/>
+                                                            </td>
+                                                            <td style="vertical-align: middle; width: 44px;">
+                                                                <span t-field="goleador.equipo_id.escudo"
+                                                                      t-field-options='{"widget": "image", "class": "img-rounded", "style": "width:32px"}'/>
+                                                            </td>
+
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+
+        <record id="menu_web_penca" model="website.menu">
+            <field name="name">Penca</field>
+            <field name="url"></field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">50</field>
+        </record>
+
+        <record id="menu_web_posiciones" model="website.menu">
+            <field name="name">Posiciones</field>
+            <field name="url">/page/penca_posiciones</field>
+            <field name="parent_id" ref="penca.menu_web_penca"/>
+            <field name="sequence" type="int">10</field>
+        </record>
+
+    </data>
+</openerp>

@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-from openerp import api, fields, models, tools
+from openerp import api, fields, models, tools, _
+from openerp.exceptions import except_orm, Warning
 
 import logging
 from datetime import *
@@ -142,6 +143,7 @@ class Resultado(models.Model):
     _description = "Resultados"
     _order = 'fecha_related'
 
+
     @api.depends('fecha_related')
     def _editable(self):
         for rec in self:
@@ -164,6 +166,17 @@ class Resultado(models.Model):
     puntos = fields.Integer(string="Puntaje Partido", size=2)
     editable = fields.Boolean(string="Editable", compute="_editable")
 
+    @api.multi
+    def write(self, vals):
+        if vals.get('goles1',False) or vals.get('goles2',False):
+            for rec in self:
+                if rec.fecha_related:
+                    fecha_partido = datetime.strptime(rec.fecha_related, "%Y-%m-%d %H:%M:%S")
+                    limite_ingreso = fecha_partido - timedelta(hours=12)
+                    fecha_actual = datetime.now()
+                    if not (fecha_actual < limite_ingreso):
+                        raise except_orm(_('Error!'), _('Ya pasó la fecha límite para este partido: %s') % (rec.partido_id.name,))
+        return super(Resultado, self).write(vals)
 
 class Penca(models.Model):
     _name = 'penca.penca'
@@ -184,6 +197,20 @@ class Penca(models.Model):
             ptos += record.pts_campeon + record.pts_goleador
             record.puntos_total = ptos
 
+    def _search_ptje(self, operator, value):
+        if operator not in ('=', '!=', '<', '<=', '>', '>=', 'in', 'not in'):
+            return []
+        # retrieve all the messages that match with a specific SQL query
+        query = """select p.id
+                   from penca_penca p
+                   where p.pts_campeon +
+                         p.pts_goleador +
+                         (select sum(r.puntos) from penca_resultado r where r.penca_id = p.id )
+                   %s %%s""" % (operator,)
+        self.env.cr.execute(query, (value,))
+        ids = [t[0] for t in self.env.cr.fetchall()]
+        return [('id', 'in', ids)]
+
     #TODO: pasar esto a nivel de configuracion y no un campo funcional
     def _camp_gol_edit(self):
         for record in self:
@@ -193,7 +220,7 @@ class Penca(models.Model):
             record.camp_gol_edit = es_editable
 
     name = fields.Char(string="Nombre", compute="_obtener_nombre", store="True")
-    puntos_total = fields.Integer(string="Puntaje", compute="_calc_ptje")
+    puntos_total = fields.Integer(string="Puntaje", compute="_calc_ptje", search="_search_ptje")
     pts_campeon = fields.Integer(string="Puntos Campeon")
     pts_goleador = fields.Integer(string="Puntos Goleador")
     goleador_id = fields.Many2one(comodel_name="penca.goleador", string="Goleador")
