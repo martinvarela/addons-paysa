@@ -18,11 +18,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-#TODO: Datos de equipos, partidos y jugadores por XML
+#OK: Datos de equipos y partidos por XML
 #OK: Que no sea necesario el modelo de posiciones, que se vea lo de la penca OK
-#TODO: Hacer modelo a partir de vista sql para posiciones en backend
+#OK: Hacer modelo a partir de vista sql para posiciones en backend
 #TODO: Reglas de seguridad y listas de control de acceso, roles: Usuario Penca, Admin Penca
-#TERMINAR DE MEJORAR: Paginas en la web con las posiciones y información
+#TODO TERMINAR DE MEJORAR: Paginas en la web con las posiciones y información
 #TODO: parametrizar fechas limites
 #TODO: automatizar puntajes y posiciones
 #TODO: mejorar envio de mails: "paysanduuniversitario@gmail.com"/"paysa2016." cambiar traduccion del template de envio de mail, cambiar direccion de mail de la compañia y del admin

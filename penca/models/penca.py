@@ -29,24 +29,45 @@ _logger = logging.getLogger(__name__)
 
 _LISTA_GOLES = [('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'), ('7', '7'), ('8', '8'), ('9', '9')]
 
-# class Posiciones(models.Model):
-#     _name = 'penca.posiciones'
-#     _description = "Posiciones"
-#     _order = "puntos desc"
-#
-#     def actualizar_puntajes(self):
-#         #borro la tabla de posiciones para luego volver a generarla
-#         self.unlink()
-#         penca_obj = self.env['penca.penca']
-#         #inserto los nuevos valores en la tabla de posiciones
-#         for penca in penca_obj.search([]):
-#             self.create({'name': penca.name, 'puntos': penca.puntos_total, 'goleador_id': penca.goleador_id.id, 'campeon_id': penca.campeon_id.id})
-#         return True
-#
-#     name = fields.Char(string="Nombre", size=80, required=True)
-#     puntos = fields.Integer(string="Puntos")
-#     goleador_id = fields.Many2one(comodel_name="penca.goleador", string="Goleador")
-#     campeon_id = fields.Many2one(comodel_name="penca.equipo", string=u"Campeón")
+_horas_editable = 3
+
+class Posiciones(models.Model):
+    _name = 'penca.posiciones'
+    _description = "Posiciones"
+    _order = "puntos_total desc"
+    _auto = False
+
+    name = fields.Char(string="Nombre")
+    puntos_partidos = fields.Integer(string="Puntos partidos")
+    campeon_id = fields.Many2one(comodel_name="penca.equipo", string=u"Campeón")
+    puntos_campeon = fields.Integer(string=u"Puntos campeón")
+    goleador_id = fields.Many2one(comodel_name="penca.goleador", string="Goleador")
+    puntos_goleador = fields.Integer(string="Puntos goleador")
+    puntos_total = fields.Integer(string="Puntos total")
+
+    def init(self, cr):
+        tools.drop_view_if_exists(cr, 'penca_posiciones')
+        cr.execute("""
+            create or replace view penca_posiciones as (
+             select
+               p.id as id,
+               p.name,
+                (select sum(COALESCE(r.puntos,0))
+                 from penca_resultado r
+                 where r.penca_id = p.id) as puntos_partidos,
+                p.campeon_id,
+                COALESCE(p.pts_campeon,0) as puntos_campeon,
+                p.goleador_id,
+                COALESCE(p.pts_goleador,0) as puntos_goleador,
+                (select sum(COALESCE(r.puntos,0)) + COALESCE(p.pts_campeon,0) + COALESCE(p.pts_goleador,0)
+                 from penca_resultado r
+                 where r.penca_id = p.id) as puntos_total
+             from penca_penca p
+             order by (select sum(COALESCE(r.puntos,0)) + COALESCE(p.pts_campeon,0) + COALESCE(p.pts_goleador,0)
+                        from penca_resultado r
+                        where r.penca_id = p.id) desc
+            )
+        """)
 
 
 class Reglas(models.Model):
@@ -156,7 +177,7 @@ class Resultado(models.Model):
         for rec in self:
             if rec.fecha_related:
                 fecha_partido = datetime.strptime(rec.fecha_related, "%Y-%m-%d %H:%M:%S")
-                limite_ingreso = fecha_partido - timedelta(hours=12)
+                limite_ingreso = fecha_partido - timedelta(hours=_horas_editable)
                 fecha_actual = datetime.now()
                 es_editable = fecha_actual < limite_ingreso
             else:
@@ -181,7 +202,7 @@ class Resultado(models.Model):
             for rec in self:
                 if rec.fecha_related:
                     fecha_partido = datetime.strptime(rec.fecha_related, "%Y-%m-%d %H:%M:%S")
-                    limite_ingreso = fecha_partido - timedelta(hours=12)
+                    limite_ingreso = fecha_partido - timedelta(hours=_horas_editable)
                     fecha_actual = datetime.now()
                     if not (fecha_actual < limite_ingreso):
                         raise except_orm(_('Error!'), _('Ya pasó la fecha límite para este partido: %s') % (rec.partido_id.name,))
@@ -223,7 +244,7 @@ class Penca(models.Model):
     #TODO: pasar esto a nivel de configuracion y no un campo funcional
     def _camp_gol_edit(self):
         for record in self:
-            fecha_limite = datetime.strptime("2016-06-03 12:00", "%Y-%m-%d %H:%M") #TODO cambiar fecha
+            fecha_limite = datetime.strptime("2016-06-04 00:00", "%Y-%m-%d %H:%M")
             fecha_actual = datetime.now()
             es_editable = fecha_actual < fecha_limite
             record.camp_gol_edit = es_editable

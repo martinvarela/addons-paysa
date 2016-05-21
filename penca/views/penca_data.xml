@@ -84,12 +84,242 @@
             <field name="escudo" type="base64" file="penca/static/img/venezuela-106x_.jpg"/>
         </record>
 
-        <!--Partidos completar los 32-->
-        <record id="partido_eq1_eq2" model="penca.partido">
-            <field name="fecha"></field>
-            <field name="equipo1_id"></field>
-            <field name="equipo2_id"></field>
+        <!--Equipo para fases finales no definidas-->
+        <record id="equipo_definir" model="penca.equipo">
+            <field name="name">A Definir</field>
         </record>
 
+        <!--Partidos completar los 32-->
+
+        <!--GRUPOA-->
+        <record id="partido_usa_col" model="penca.partido">
+            <field name="fecha">2016-06-04 01:30</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_estadosunidos"/>
+            <field name="equipo2_id" ref="equipo_colombia"/>
+        </record>
+
+        <record id="partido_cri_par" model="penca.partido">
+            <field name="fecha">2016-06-04 21:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_costarica"/>
+            <field name="equipo2_id" ref="equipo_paraguay"/>
+        </record>
+
+        <record id="partido_usa_cri" model="penca.partido">
+            <field name="fecha">2016-06-08 00:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_estadosunidos"/>
+            <field name="equipo2_id" ref="equipo_costarica"/>
+        </record>
+
+        <record id="partido_col_par" model="penca.partido">
+            <field name="fecha">2016-06-08 02:30</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_colombia"/>
+            <field name="equipo2_id" ref="equipo_paraguay"/>
+        </record>
+
+        <record id="partido_usa_par" model="penca.partido">
+            <field name="fecha">2016-06-11 23:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_estadosunidos"/>
+            <field name="equipo2_id" ref="equipo_paraguay"/>
+        </record>
+
+        <record id="partido_col_cri" model="penca.partido">
+            <field name="fecha">2016-06-12 01:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_colombia"/>
+            <field name="equipo2_id" ref="equipo_costarica"/>
+        </record>
+
+        <!--GRUPOB-->
+        <record id="partido_hai_per" model="penca.partido">
+            <field name="fecha">2016-06-04 23:30</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_haiti"/>
+            <field name="equipo2_id" ref="equipo_peru"/>
+        </record>
+
+        <record id="partido_bra_ecu" model="penca.partido">
+            <field name="fecha">2016-06-05 02:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_brasil"/>
+            <field name="equipo2_id" ref="equipo_ecuador"/>
+        </record>
+
+        <record id="partido_bra_hai" model="penca.partido">
+            <field name="fecha">2016-06-08 23:30</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_brasil"/>
+            <field name="equipo2_id" ref="equipo_haiti"/>
+        </record>
+
+        <record id="partido_ecu_per" model="penca.partido">
+            <field name="fecha">2016-06-09 02:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_ecuador"/>
+            <field name="equipo2_id" ref="equipo_peru"/>
+        </record>
+
+        <record id="partido_ecu_hai" model="penca.partido">
+            <field name="fecha">2016-06-12 22:30</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_ecuador"/>
+            <field name="equipo2_id" ref="equipo_haiti"/>
+        </record>
+
+        <record id="partido_bra_per" model="penca.partido">
+            <field name="fecha">2016-06-13 00:30</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_brasil"/>
+            <field name="equipo2_id" ref="equipo_peru"/>
+        </record>
+
+        <!--GRUPOC-->
+        <record id="partido_jam_ven" model="penca.partido">
+            <field name="fecha">2016-06-05 21:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_jamaica"/>
+            <field name="equipo2_id" ref="equipo_venezuela"/>
+        </record>
+
+        <record id="partido_mex_uru" model="penca.partido">
+            <field name="fecha">2016-06-06 00:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_mexico"/>
+            <field name="equipo2_id" ref="equipo_uruguay"/>
+        </record>
+
+        <record id="partido_uru_ven" model="penca.partido">
+            <field name="fecha">2016-06-09 23:30</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_uruguay"/>
+            <field name="equipo2_id" ref="equipo_venezuela"/>
+        </record>
+
+        <record id="partido_mex_jam" model="penca.partido">
+            <field name="fecha">2016-06-10 02:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_mexico"/>
+            <field name="equipo2_id" ref="equipo_jamaica"/>
+        </record>
+
+        <record id="partido_mex_ven" model="penca.partido">
+            <field name="fecha">2016-06-14 00:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_mexico"/>
+            <field name="equipo2_id" ref="equipo_venezuela"/>
+        </record>
+
+        <record id="partido_uru_jam" model="penca.partido">
+            <field name="fecha">2016-06-14 02:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_uruguay"/>
+            <field name="equipo2_id" ref="equipo_jamaica"/>
+        </record>
+
+        <!--GRUPOD-->
+        <record id="partido_pan_bol" model="penca.partido">
+            <field name="fecha">2016-06-06 23:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_panama"/>
+            <field name="equipo2_id" ref="equipo_bolivia"/>
+        </record>
+
+        <record id="partido_arg_chi" model="penca.partido">
+            <field name="fecha">2016-06-07 02:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_argentina"/>
+            <field name="equipo2_id" ref="equipo_chile"/>
+        </record>
+
+        <record id="partido_chi_bol" model="penca.partido">
+            <field name="fecha">2016-06-10 23:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_chile"/>
+            <field name="equipo2_id" ref="equipo_bolivia"/>
+        </record>
+
+        <record id="partido_arg_pan" model="penca.partido">
+            <field name="fecha">2016-06-11 01:30</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_argentina"/>
+            <field name="equipo2_id" ref="equipo_panama"/>
+        </record>
+
+        <record id="partido_chi_pan" model="penca.partido">
+            <field name="fecha">2016-06-15 00:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_chile"/>
+            <field name="equipo2_id" ref="equipo_panama"/>
+        </record>
+
+        <record id="partido_arg_bol" model="penca.partido">
+            <field name="fecha">2016-06-15 02:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_argentina"/>
+            <field name="equipo2_id" ref="equipo_bolivia"/>
+        </record>
+
+        <!--CUARTOS-->
+        <record id="partido_1a_2b" model="penca.partido">
+            <field name="fecha">2016-06-17 01:30</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_definir"/>
+            <field name="equipo2_id" ref="equipo_definir"/>
+        </record>
+
+        <record id="partido_1d_2c" model="penca.partido">
+            <field name="fecha">2016-06-18 23:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_definir"/>
+            <field name="equipo2_id" ref="equipo_definir"/>
+        </record>
+
+        <record id="partido_1b_2a" model="penca.partido">
+            <field name="fecha">2016-06-18 00:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_definir"/>
+            <field name="equipo2_id" ref="equipo_definir"/>
+        </record>
+
+        <record id="partido_1c_2d" model="penca.partido">
+            <field name="fecha">2016-06-19 02:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_definir"/>
+            <field name="equipo2_id" ref="equipo_definir"/>
+        </record>
+
+        <!--SEMIS-->
+        <record id="partido_semi1" model="penca.partido">
+            <field name="fecha">2016-06-22 01:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_definir"/>
+            <field name="equipo2_id" ref="equipo_definir"/>
+        </record>
+
+        <record id="partido_semi2" model="penca.partido">
+            <field name="fecha">2016-06-23 00:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_definir"/>
+            <field name="equipo2_id" ref="equipo_definir"/>
+        </record>
+
+        <!--FINAL y 3ER PUESTO-->
+        <record id="partido_tercer" model="penca.partido">
+            <field name="fecha">2016-06-26 00:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_definir"/>
+            <field name="equipo2_id" ref="equipo_definir"/>
+        </record>
+
+        <record id="partido_final" model="penca.partido">
+            <field name="fecha">2016-06-27 00:00</field>
+            <!--Ojo, va en UTC-0 sumar 3 horas a la fecha para cargar-->
+            <field name="equipo1_id" ref="equipo_definir"/>
+            <field name="equipo2_id" ref="equipo_definir"/>
+        </record>
     </data>
 </openerp>

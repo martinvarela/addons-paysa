@@ -237,71 +237,32 @@
         <menuitem id="menu_reglamento" name="Reglamento" parent="menu_penca_penca" sequence="1"/>
         <menuitem id="penca_reglas" name="Reglamento" parent="menu_reglamento" action="reglas_action"/>
 
-
-<!--        <record model="ir.ui.view" id="view_posiciones_form">
-            <field name="name">penca.reglas_pos</field>
-            <field name="model">penca.reglas</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form create="false" save="false" string="Posiciones" version="7.0">
-                    <header>
-                        <separator colspan="5" string="* Posiciones *"/>
-                    </header>
-                    <sheet>
-                        <button name="act_puntajes" string="Actualizar Puntajes" type="object"
-                                groups="base.group_no_one"/>
-                    </sheet>
-                </form>
-            </field>
-        </record>-->
-
-<!--
-        <record model="ir.actions.act_window" id="posiciones_action">
-            <field name="name">Posiciones</field>
-            <field name="res_model">penca.reglas</field>
-            <field name="view_type">form</field>
-            <field name="target">inline</field>
-            <field name="view_id" ref="view_posiciones_form"/>
-        </record>
--->
-
-<!--
-        <menuitem action="posiciones_action"
-                  id="menu_posiciones_form"
-                  parent="menu_penca_config" sequence="4"/>
--->
-
-<!--
         <record model="ir.ui.view" id="view_posiciones_tree">
             <field name="name">penca.posiciones</field>
             <field name="model">penca.posiciones</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-                <tree create="false" save="false" string="Posiciones" version="7.0">
+                <tree create="false" delete="false" save="false" string="Posiciones" version="7.0">
                     <field name="name"/>
-                    <field name="puntos"/>
-                    <field name="campeon_id"/>
                     <field name="goleador_id"/>
+                    <field name="puntos_goleador"/>
+                    <field name="campeon_id"/>
+                    <field name="puntos_campeon"/>
+                    <field name="puntos_total"/>
                 </tree>
             </field>
         </record>
--->
 
-<!--
         <record model="ir.actions.act_window" id="posiciones_action_list">
             <field name="name">Posiciones</field>
             <field name="res_model">penca.posiciones</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
-            &lt;!&ndash;<field name="target">inline</field>&ndash;&gt;
             <field name="view_id" ref="view_posiciones_tree"/>
         </record>
--->
 
-<!--
         <menuitem id="menu_posiciones" name="Posiciones" parent="menu_penca_penca" sequence="3"/>
         <menuitem action="posiciones_action_list" id="menu_posiciones_list" parent="menu_posiciones"/>
--->
 
         <record model="ir.ui.view" id="view_camp_gol_form">
             <field name="name">penca.campeon_goleador</field>
