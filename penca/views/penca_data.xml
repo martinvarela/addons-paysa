@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <!--<data noupdate="1">-->
+    <data>
+
+        <!--Equipos-->
+        <record id="equipo_argentina" model="penca.equipo">
+            <field name="name">Argentina</field>
+            <field name="escudo" type="base64" file="penca/static/img/argentina-106x_.jpg"/>
+        </record>
+
+        <record id="equipo_bolivia" model="penca.equipo">
+            <field name="name">Bolivia</field>
+            <field name="escudo" type="base64" file="penca/static/img/bolivia-106x_.jpg"/>
+        </record>
+
+        <record id="equipo_brasil" model="penca.equipo">
+            <field name="name">Brasil</field>
+            <field name="escudo" type="base64" file="penca/static/img/brazil-106x_.png"/>
+        </record>
+
+        <record id="equipo_chile" model="penca.equipo">
+            <field name="name">Chile</field>
+            <field name="escudo" type="base64" file="penca/static/img/chile-106x_.jpg"/>
+        </record>
+
+        <record id="equipo_colombia" model="penca.equipo">
+            <field name="name">Colombia</field>
+            <field name="escudo" type="base64" file="penca/static/img/columbia-106x_.jpg"/>
+        </record>
+
+        <record id="equipo_costarica" model="penca.equipo">
+            <field name="name">Costa Rica</field>
+            <field name="escudo" type="base64" file="penca/static/img/costarica-106x_.jpg"/>
+        </record>
+
+        <record id="equipo_ecuador" model="penca.equipo">
+            <field name="name">Ecuador</field>
+            <field name="escudo" type="base64" file="penca/static/img/ecuador-106x_.jpg"/>
+        </record>
+
+        <record id="equipo_haiti" model="penca.equipo">
+            <field name="name">Haití</field>
+            <field name="escudo" type="base64" file="penca/static/img/haiti-106x_.jpg"/>
+        </record>
+
+        <record id="equipo_jamaica" model="penca.equipo">
+            <field name="name">Jamaica</field>
+            <field name="escudo" type="base64" file="penca/static/img/jamaica-106x_.jpg"/>
+        </record>
+
+        <record id="equipo_mexico" model="penca.equipo">
+            <field name="name">México</field>
+            <field name="escudo" type="base64" file="penca/static/img/mexico-106x_.jpg"/>
+        </record>
+
+        <record id="equipo_panama" model="penca.equipo">
+            <field name="name">Panamá</field>
+            <field name="escudo" type="base64" file="penca/static/img/panama-106x_.jpg"/>
+        </record>
+
+        <record id="equipo_paraguay" model="penca.equipo">
+            <field name="name">Paraguay</field>
+            <field name="escudo" type="base64" file="penca/static/img/paraguay-106x_.jpg"/>
+        </record>
+
+        <record id="equipo_peru" model="penca.equipo">
+            <field name="name">Perú</field>
+            <field name="escudo" type="base64" file="penca/static/img/peru-106x_.jpg"/>
+        </record>
+
+        <record id="equipo_estadosunidos" model="penca.equipo">
+            <field name="name">Estados Unidos</field>
+            <field name="escudo" type="base64" file="penca/static/img/united-states-106x_.jpg"/>
+        </record>
+
+        <record id="equipo_uruguay" model="penca.equipo">
+            <field name="name">Uruguay</field>
+            <field name="escudo" type="base64" file="penca/static/img/uruguay-106x_.jpg"/>
+        </record>
+
+        <record id="equipo_venezuela" model="penca.equipo">
+            <field name="name">Venezuela</field>
+            <field name="escudo" type="base64" file="penca/static/img/venezuela-106x_.jpg"/>
+        </record>
+
+        <!--Partidos completar los 32-->
+        <record id="partido_eq1_eq2" model="penca.partido">
+            <field name="fecha"></field>
+            <field name="equipo1_id"></field>
+            <field name="equipo2_id"></field>
+        </record>
+
+    </data>
+</openerp>
