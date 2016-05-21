@@ -27,35 +27,37 @@ from datetime import *
 
 _logger = logging.getLogger(__name__)
 
-class Posiciones(models.Model):
-    _name = 'penca.posiciones'
-    _description = "Posiciones"
-    _order = "puntos desc"
+_LISTA_GOLES = [('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'), ('7', '7'), ('8', '8'), ('9', '9')]
 
-    def actualizar_puntajes(self):
-        #borro la tabla de posiciones para luego volver a generarla
-        self.unlink()
-        penca_obj = self.env['penca.penca']
-        #inserto los nuevos valores en la tabla de posiciones
-        for penca in penca_obj.search([]):
-            self.create({'name': penca.name, 'puntos': penca.puntos_total, 'goleador_id': penca.goleador_id.id, 'campeon_id': penca.campeon_id.id})
-        return True
-
-    name = fields.Char(string="Nombre", size=80, required=True)
-    puntos = fields.Integer(string="Puntos")
-    goleador_id = fields.Many2one(comodel_name="penca.goleador", string="Goleador")
-    campeon_id = fields.Many2one(comodel_name="penca.equipo", string=u"Campeón")
+# class Posiciones(models.Model):
+#     _name = 'penca.posiciones'
+#     _description = "Posiciones"
+#     _order = "puntos desc"
+#
+#     def actualizar_puntajes(self):
+#         #borro la tabla de posiciones para luego volver a generarla
+#         self.unlink()
+#         penca_obj = self.env['penca.penca']
+#         #inserto los nuevos valores en la tabla de posiciones
+#         for penca in penca_obj.search([]):
+#             self.create({'name': penca.name, 'puntos': penca.puntos_total, 'goleador_id': penca.goleador_id.id, 'campeon_id': penca.campeon_id.id})
+#         return True
+#
+#     name = fields.Char(string="Nombre", size=80, required=True)
+#     puntos = fields.Integer(string="Puntos")
+#     goleador_id = fields.Many2one(comodel_name="penca.goleador", string="Goleador")
+#     campeon_id = fields.Many2one(comodel_name="penca.equipo", string=u"Campeón")
 
 
 class Reglas(models.Model):
     _name = 'penca.reglas'
     _description = "Reglamento"
 
-    @api.multi
-    def act_puntajes(self):
-        posiciones_obj = self.env['penca.posiciones']
-        posiciones = posiciones_obj.search([])
-        return posiciones.actualizar_puntajes()
+    # @api.multi
+    # def act_puntajes(self):
+    #     posiciones_obj = self.env['penca.posiciones']
+    #     posiciones = posiciones_obj.search([])
+    #     return posiciones.actualizar_puntajes()
 
 
 class Equipo(models.Model):
@@ -80,23 +82,26 @@ class Partido(models.Model):
                 rec.name = rec.equipo1_id.name  + ' vs ' + rec.equipo2_id.name
 
     def obtener_puntos(self, resultado, partido):
+        #No cargo alguno de los goles
+        if not resultado.goles1 or not resultado.goles2:
+            return 0
         #resultado exacto
-        if resultado.goles1 == partido.goles_eq1 and resultado.goles2 == partido.goles_eq2 :
+        elif resultado.goles1 == partido.goles_eq1 and resultado.goles2 == partido.goles_eq2 :
             return 6
         #empate
         elif resultado.goles1 == resultado.goles2 and partido.goles_eq1 == partido.goles_eq2 :
             return 4
         #resutlado + diferencia de goles
-        elif (resultado.goles1 - resultado.goles2) == (partido.goles_eq1 - partido.goles_eq2) :
+        elif (int(resultado.goles1) - int(resultado.goles2)) == (int(partido.goles_eq1) - int(partido.goles_eq2)) :
             return 4
-        elif resultado.goles1 < resultado.goles2 and partido.goles_eq1 < partido.goles_eq2 :
+        elif int(resultado.goles1) < int(resultado.goles2) and int(partido.goles_eq1) < int(partido.goles_eq2) :
             if (resultado.goles1 == partido.goles_eq1) or (resultado.goles2 == partido.goles_eq2):
                 #resultado + goles 1 equipo
                 return 4
             else:
                 #resultado
                 return 3
-        elif resultado.goles1 > resultado.goles2 and partido.goles_eq1 > partido.goles_eq2 :
+        elif int(resultado.goles1) > int(resultado.goles2) and int(partido.goles_eq1) > int(partido.goles_eq2):
             if (resultado.goles1 == partido.goles_eq1) or (resultado.goles2 == partido.goles_eq2):
                 #resultado + goles 1 equipo
                 return 4
@@ -132,10 +137,12 @@ class Partido(models.Model):
     fecha = fields.Datetime(string="Fecha", required=True)
     equipo1_id = fields.Many2one(comodel_name="penca.equipo", string="Equipo 1", required=True)
     esc1_related = fields.Binary(string="Escudo1", related="equipo1_id.escudo")
-    goles_eq1 = fields.Integer(string="Goles1", size=1)
+    #goles_eq1 = fields.Integer(string="Goles1", size=1)
+    goles_eq1 = fields.Selection(string="Goles1", selection=_LISTA_GOLES)
     equipo2_id = fields.Many2one(comodel_name="penca.equipo", string="Equipo 2", required=True)
     esc2_related = fields.Binary(string="Escudo2", related="equipo2_id.escudo")
-    goles_eq2 = fields.Integer(string="Goles2", size=1)
+    #goles_eq2 = fields.Integer(string="Goles2", size=1)
+    goles_eq2 = fields.Selection(string="Goles2", selection=_LISTA_GOLES)
     finalizado = fields.Boolean(string="Finalizado", default=False)
 
 class Resultado(models.Model):
@@ -160,9 +167,11 @@ class Resultado(models.Model):
     partido_id = fields.Many2one(comodel_name="penca.partido", string="Partido")
     fecha_related = fields.Datetime(string="Fecha", related="partido_id.fecha", store=True)
     esc1_rel = fields.Binary(string="Escudo1", related="partido_id.equipo1_id.escudo")
-    goles1 = fields.Integer(string="Gol1", size=1)
+    #goles1 = fields.Integer(string="Gol1", size=1)
+    goles1 = fields.Selection(string="Gol1", selection=_LISTA_GOLES)
     esc2_rel = fields.Binary(string="Escudo2", related="partido_id.equipo2_id.escudo")
-    goles2 = fields.Integer(string="Gol2", size=1)
+    #goles2 = fields.Integer(string="Gol2", size=1)
+    goles2 = fields.Selection(string="Gol2", selection=_LISTA_GOLES)
     puntos = fields.Integer(string="Puntaje Partido", size=2)
     editable = fields.Boolean(string="Editable", compute="_editable")
 
