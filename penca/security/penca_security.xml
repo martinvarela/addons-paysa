@@ -18,4 +18,23 @@
 
     </data>
 
+    <data noupdate="1">
+        <record id="penca_usuario_rule" model="ir.rule">
+            <field name="name">Ver solo la penca del usuario</field>
+            <field name="model_id" ref="model_penca_penca"/>
+            <field name="groups" eval="[(4,ref('penca.group_usuario_penca'))]"/>
+            <field name="domain_force">[('user_id','=',user.id)]</field>
+        </record>
+
+        <record id="penca_admin_rule" model="ir.rule">
+            <field name="name">El admin penca ve todas</field>
+            <field name="model_id" ref="model_penca_penca"/>
+            <field name="groups" eval="[(4,ref('penca.group_admin_penca'))]"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+
+
+    </data>
+
+
 </openerp>

@@ -2,7 +2,7 @@
 <openerp>
     <data>
 
-        <menuitem id="menu_penca_config" name="Configuracion Penca" parent="menu_penca_penca" sequence="20"/>
+        <menuitem id="menu_penca_config" name="Configuracion Penca" parent="menu_penca_penca" sequence="20" groups="group_admin_penca"/>
 
         <record model="ir.ui.view" id="view_equipos_form">
             <field name="name">penca.equipo</field>
@@ -339,6 +339,25 @@
                           id="menu_gloeadores_tree"
                           parent="menu_penca_config" sequence="7"/>
         -->
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="res_users_form_penca_inherit" model="ir.ui.view">
+            <field name="name">res.users.form.penca.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="before">
+                    <field name="vendedor"/>
+                </field>
+                <div class="oe_right oe_button_box" position="inside">
+                    <!-- Add your fields or attributes here -->
+                    <field name="tiene_penca" invisible="1"/>
+                    <button string="Crear Penca" type="object" name="crear_penca" class="oe_highlight" attrs="{'invisible':[('tiene_penca','=',True)]}" help="Crear una penca para el usuario."/>
+                    <button string="Ver Penca" type="object" name="ver_penca" attrs="{'invisible':[('tiene_penca','!=',True)]}" help="Ir a la penca del usuario."/>
+                </div>
+
+            </field>
+        </record>
 
     </data>
 

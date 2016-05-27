@@ -31,6 +31,7 @@ _LISTA_GOLES = [('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5'
 
 _horas_editable = 3
 
+
 class Posiciones(models.Model):
     _name = 'penca.posiciones'
     _description = "Posiciones"
@@ -94,28 +95,28 @@ class Partido(models.Model):
     _description = "Partido"
     _order = 'fecha'
 
-    @api.depends('equipo1_id.name','equipo2_id.name')
+    @api.depends('equipo1_id.name', 'equipo2_id.name')
     def _concatenar(self):
         for rec in self:
             if not rec.equipo1_id.name or not rec.equipo2_id.name:
                 rec.name = ' vs '
             else:
-                rec.name = rec.equipo1_id.name  + ' vs ' + rec.equipo2_id.name
+                rec.name = rec.equipo1_id.name + ' vs ' + rec.equipo2_id.name
 
     def obtener_puntos(self, resultado, partido):
         #No cargo alguno de los goles
         if not resultado.goles1 or not resultado.goles2:
             return 0
         #resultado exacto
-        elif resultado.goles1 == partido.goles_eq1 and resultado.goles2 == partido.goles_eq2 :
+        elif resultado.goles1 == partido.goles_eq1 and resultado.goles2 == partido.goles_eq2:
             return 6
         #empate
-        elif resultado.goles1 == resultado.goles2 and partido.goles_eq1 == partido.goles_eq2 :
+        elif resultado.goles1 == resultado.goles2 and partido.goles_eq1 == partido.goles_eq2:
             return 4
         #resutlado + diferencia de goles
-        elif (int(resultado.goles1) - int(resultado.goles2)) == (int(partido.goles_eq1) - int(partido.goles_eq2)) :
+        elif (int(resultado.goles1) - int(resultado.goles2)) == (int(partido.goles_eq1) - int(partido.goles_eq2)):
             return 4
-        elif int(resultado.goles1) < int(resultado.goles2) and int(partido.goles_eq1) < int(partido.goles_eq2) :
+        elif int(resultado.goles1) < int(resultado.goles2) and int(partido.goles_eq1) < int(partido.goles_eq2):
             if (resultado.goles1 == partido.goles_eq1) or (resultado.goles2 == partido.goles_eq2):
                 #resultado + goles 1 equipo
                 return 4
@@ -143,13 +144,13 @@ class Partido(models.Model):
 
         #para cada partido finalizado 
         for partido in self:
-            if partido.finalizado == True:
+            if partido.finalizado:
                 #busco los pronosticos de ese partido y actualizo los valores
-                for resultado in resultados_obj.search([('partido_id','=',partido.id)]):
+                for resultado in resultados_obj.search([('partido_id', '=', partido.id)]):
                     puntos_obtenidos = self.obtener_puntos(resultado, partido)
                     resultado.write({'puntos': puntos_obtenidos})
             elif 'finalizado' in vals and vals['finalizado'] == False:
-                resultado_ids = resultados_obj.search([('partido_id','=',partido.id),('puntos','>',0)])
+                resultado_ids = resultados_obj.search([('partido_id', '=', partido.id), ('puntos', '>', 0)])
                 resultado_ids.write({'puntos': 0})
         return True
 
@@ -241,7 +242,6 @@ class Penca(models.Model):
         ids = [t[0] for t in self.env.cr.fetchall()]
         return [('id', 'in', ids)]
 
-    #TODO: pasar esto a nivel de configuracion y no un campo funcional
     def _camp_gol_edit(self):
         for record in self:
             fecha_limite = datetime.strptime("2016-06-04 00:00", "%Y-%m-%d %H:%M")
@@ -254,7 +254,10 @@ class Penca(models.Model):
     pts_campeon = fields.Integer(string="Puntos Campeon")
     pts_goleador = fields.Integer(string="Puntos Goleador")
     goleador_id = fields.Many2one(comodel_name="penca.goleador", string="Goleador")
+    goleador_foto_rel = fields.Binary(string="Foto", related="goleador_id.foto")
+    otro_goleador = fields.Char(string="Otro", help="Escriba el nombre")
     campeon_id = fields.Many2one(comodel_name="penca.equipo", string=u"Campeón")
+    camp_escudo_rel = fields.Binary(string="Escudo", related="campeon_id.escudo")
     user_id = fields.Many2one(comodel_name="res.users", string="Usuario")
     resultado_ids = fields.One2many(comodel_name="penca.resultado", inverse_name="penca_id", string="Resultados")
     camp_gol_edit = fields.Boolean(string="Editar camp y gol", compute="_camp_gol_edit")
@@ -276,7 +279,7 @@ class CampeonGoleador(models.Model):
 
         #obtengo el goleador y el campeon
         for camp_gol in self:
-            if camp_gol.fin == True:
+            if camp_gol.fin:
                 #actualizo todas las pencas
                 for penca in penca_obj.search([]):
                     p_camp = 0
@@ -296,12 +299,27 @@ class CampeonGoleador(models.Model):
 class Usuario(models.Model):
     _inherit = 'res.users'
 
-    @api.model
-    def create(self, data):
-        user_id = super(Usuario, self).create(data)
+    # @api.model
+    # def create(self, data):
+    #     user_id = super(Usuario, self).create(data)
+    #     self.crear_penca(user_id)
+    #     #creo la penca asignada al nuevo usuario
+    #     penca_obj = self.env['penca.penca']
+    #     penca_id = penca_obj.create({'user_id': user_id.id})
+    #     #obtengo el modelo resultado para crear nuevos asociados al usuario
+    #     resultado_obj = self.env['penca.resultado']
+    #     #obtengo todos los partidos y para cada uno creo un resultado asociado a la penca
+    #     partido_obj = self.env['penca.partido']
+    #     partido_ids = partido_obj.search([])
+    #     for partido_id in partido_ids:
+    #         resultado_obj.create({'partido_id': partido_id.id, 'penca_id': penca_id.id})
+    #     return user_id
+
+    @api.one
+    def crear_penca(self):
         #creo la penca asignada al nuevo usuario
         penca_obj = self.env['penca.penca']
-        penca_id = penca_obj.create({'user_id': user_id.id})
+        penca_id = penca_obj.create({'user_id': self.id})
         #obtengo el modelo resultado para crear nuevos asociados al usuario
         resultado_obj = self.env['penca.resultado']
         #obtengo todos los partidos y para cada uno creo un resultado asociado a la penca
@@ -309,11 +327,34 @@ class Usuario(models.Model):
         partido_ids = partido_obj.search([])
         for partido_id in partido_ids:
             resultado_obj.create({'partido_id': partido_id.id, 'penca_id': penca_id.id})
-        return user_id
+        return True
 
-    #_columns = {
-    #    'vendedor': fields.char('Vendedor', size=40),
-    #}
+
+    def ver_penca(self, cr, uid, ids, context=None):
+        ModelData = self.pool.get('ir.model.data')
+        view_ref = ModelData.get_object_reference(cr, uid, 'penca', 'view_penca_penca_tree')
+        view_id = view_ref and view_ref[1] or False,
+        _logger.info("ref: %s, view_id: %s", view_ref, view_id)
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Penca'),
+            'res_model': 'penca.penca',
+            'view_type': 'form',
+            'view_mode': 'tree',
+            'view_id': view_id,
+            'target': 'current',
+            'domain': [('user_id','=', ids[0])],
+            'nodestroy': True,
+        }
+
+    def _tiene_penca(self):
+        Penca = self.env['penca.penca']
+        for record in self:
+            pencas = Penca.search([('user_id','=',record.id)])
+            record.tiene_penca = len(pencas) > 0
+
+    vendedor = fields.Char(string=u"Vendedor")
+    tiene_penca = fields.Boolean(string=u"Tiene penca?", compute="_tiene_penca")
 
 
 class Goleador(models.Model):

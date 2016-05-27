@@ -22,13 +22,12 @@
 #OK: Que no sea necesario el modelo de posiciones, que se vea lo de la penca OK
 #OK: Hacer modelo a partir de vista sql para posiciones en backend
 #TODO: Reglas de seguridad y listas de control de acceso, roles: Usuario Penca, Admin Penca
-#TODO TERMINAR DE MEJORAR: Paginas en la web con las posiciones y información
-#TODO: parametrizar fechas limites
-#TODO: automatizar puntajes y posiciones
+#TODO TERMINAR DE MEJORAR: Paginas en la web con las posiciones, información y reglas
 #TODO: mejorar envio de mails: "paysanduuniversitario@gmail.com"/"paysa2016." cambiar traduccion del template de envio de mail, cambiar direccion de mail de la compañia y del admin
-#TODO: mejorar creacion de pencas automatico
+#OK: mejorar creacion de pencas automatico
 #TODO: revisar criterio de puntos, campeon, goleador y partido, darle mas importancia a un 4 a 2 que a un 1 a 0
 #TESTEAR: validacion de que no hagan trampa readonly al guardar
+#TODO: Ocultar menus mensajeria e informes
 {
     'name': 'Penca Copa America Centenario - Pay 2016',
     'version': '1.0',
@@ -42,10 +41,10 @@ Penca de la Copa America Centenario 2016 - Paysandu Universitario """,
     'demo': [],
     'test': [],
     'data': [
+        'security/penca_security.xml',
         'views/penca_view.xml',
         'views/config_penca_view.xml',
         'templates/penca_template.xml',
-        'security/penca_security.xml',
         'security/ir.model.access.csv',
         'views/penca_data.xml',
     ],
