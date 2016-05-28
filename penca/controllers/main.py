@@ -23,7 +23,9 @@ class jugador(http.Controller):
 
         pencas = [penca[0] for penca in pencas_ord]
 
-        goleador_ids = goleador_obj.search(request.cr, request.uid, [('goles','>',0)], order="goles desc", limit=10, context=request.context)
+        #goleador_ids = goleador_obj.search(request.cr, request.uid, [('goles','>',0)], order="goles desc", limit=10, context=request.context)
+        goleador_ids = goleador_obj.search(request.cr, request.uid, [], order="goles desc", limit=10, context=request.context)
+
         goleadores = []
         for g in goleador_obj.browse(request.cr, request.uid, goleador_ids, request.context):
             goleadores.append(g)

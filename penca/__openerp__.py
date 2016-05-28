@@ -21,13 +21,14 @@
 #OK: Datos de equipos y partidos por XML
 #OK: Que no sea necesario el modelo de posiciones, que se vea lo de la penca OK
 #OK: Hacer modelo a partir de vista sql para posiciones en backend
-#TODO: Reglas de seguridad y listas de control de acceso, roles: Usuario Penca, Admin Penca
+#OK: Reglas de seguridad y listas de control de acceso, roles: Usuario Penca, Admin Penca
 #TODO TERMINAR DE MEJORAR: Paginas en la web con las posiciones, información y reglas
-#TODO: mejorar envio de mails: "paysanduuniversitario@gmail.com"/"paysa2016." cambiar traduccion del template de envio de mail, cambiar direccion de mail de la compañia y del admin
+#TEST: mejorar envio de mails: "paysanduuniversitario@gmail.com"/"paysa2016." cambiar traduccion del template de envio de mail, cambiar direccion de mail de la compañia y del admin
 #OK: mejorar creacion de pencas automatico
 #TODO: revisar criterio de puntos, campeon, goleador y partido, darle mas importancia a un 4 a 2 que a un 1 a 0
 #TESTEAR: validacion de que no hagan trampa readonly al guardar
 #TODO: Ocultar menus mensajeria e informes
+#TESTEAR: (Se resuelve con form vacio) desde la tree de los resultados de la penca se puede abrir la form y editar los campos y deja editar los puntos y goles
 {
     'name': 'Penca Copa America Centenario - Pay 2016',
     'version': '1.0',

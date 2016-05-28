@@ -55,6 +55,8 @@
                                         <field name="esc2_rel" readonly="1" widget="image" string="" height="25"/>
                                         <field name="puntos" readonly="1" string="Pts"/>
                                     </tree>
+                                    <form edit="false" create="false">
+                                    </form>
                                 </field>
                             </group>
                         </group>

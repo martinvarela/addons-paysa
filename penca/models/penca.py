@@ -31,46 +31,6 @@ _LISTA_GOLES = [('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5'
 
 _horas_editable = 3
 
-
-class Posiciones(models.Model):
-    _name = 'penca.posiciones'
-    _description = "Posiciones"
-    _order = "puntos_total desc"
-    _auto = False
-
-    name = fields.Char(string="Nombre")
-    puntos_partidos = fields.Integer(string="Puntos partidos")
-    campeon_id = fields.Many2one(comodel_name="penca.equipo", string=u"Campeón")
-    puntos_campeon = fields.Integer(string=u"Puntos campeón")
-    goleador_id = fields.Many2one(comodel_name="penca.goleador", string="Goleador")
-    puntos_goleador = fields.Integer(string="Puntos goleador")
-    puntos_total = fields.Integer(string="Puntos total")
-
-    def init(self, cr):
-        tools.drop_view_if_exists(cr, 'penca_posiciones')
-        cr.execute("""
-            create or replace view penca_posiciones as (
-             select
-               p.id as id,
-               p.name,
-                (select sum(COALESCE(r.puntos,0))
-                 from penca_resultado r
-                 where r.penca_id = p.id) as puntos_partidos,
-                p.campeon_id,
-                COALESCE(p.pts_campeon,0) as puntos_campeon,
-                p.goleador_id,
-                COALESCE(p.pts_goleador,0) as puntos_goleador,
-                (select sum(COALESCE(r.puntos,0)) + COALESCE(p.pts_campeon,0) + COALESCE(p.pts_goleador,0)
-                 from penca_resultado r
-                 where r.penca_id = p.id) as puntos_total
-             from penca_penca p
-             order by (select sum(COALESCE(r.puntos,0)) + COALESCE(p.pts_campeon,0) + COALESCE(p.pts_goleador,0)
-                        from penca_resultado r
-                        where r.penca_id = p.id) desc
-            )
-        """)
-
-
 class Reglas(models.Model):
     _name = 'penca.reglas'
     _description = "Reglamento"
@@ -340,8 +300,8 @@ class Usuario(models.Model):
             'name': _('Penca'),
             'res_model': 'penca.penca',
             'view_type': 'form',
-            'view_mode': 'tree',
-            'view_id': view_id,
+            'view_mode': 'tree,form',
+            #'view_id': view_id,
             'target': 'current',
             'domain': [('user_id','=', ids[0])],
             'nodestroy': True,
@@ -368,3 +328,41 @@ class Goleador(models.Model):
     equipo_id = fields.Many2one(comodel_name="penca.equipo", string="Equipo")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+class Posiciones(models.Model):
+    _name = 'penca.posiciones'
+    _description = "Posiciones"
+    _order = "puntos_total desc"
+    _auto = False
+
+    name = fields.Char(string="Nombre")
+    puntos_partidos = fields.Integer(string="Puntos partidos")
+    campeon_id = fields.Many2one(comodel_name="penca.equipo", string=u"Campeón")
+    puntos_campeon = fields.Integer(string=u"Puntos campeón")
+    goleador_id = fields.Many2one(comodel_name="penca.goleador", string="Goleador")
+    puntos_goleador = fields.Integer(string="Puntos goleador")
+    puntos_total = fields.Integer(string="Puntos total")
+
+    def init(self, cr):
+        tools.drop_view_if_exists(cr, 'penca_posiciones')
+        cr.execute("""
+            create or replace view penca_posiciones as (
+             select
+               p.id as id,
+               p.name,
+                (select sum(COALESCE(r.puntos,0))
+                 from penca_resultado r
+                 where r.penca_id = p.id) as puntos_partidos,
+                p.campeon_id,
+                COALESCE(p.pts_campeon,0) as puntos_campeon,
+                p.goleador_id,
+                COALESCE(p.pts_goleador,0) as puntos_goleador,
+                (select sum(COALESCE(r.puntos,0)) + COALESCE(p.pts_campeon,0) + COALESCE(p.pts_goleador,0)
+                 from penca_resultado r
+                 where r.penca_id = p.id) as puntos_total
+             from penca_penca p
+             order by (select sum(COALESCE(r.puntos,0)) + COALESCE(p.pts_campeon,0) + COALESCE(p.pts_goleador,0)
+                        from penca_resultado r
+                        where r.penca_id = p.id) desc
+            )
+        """)

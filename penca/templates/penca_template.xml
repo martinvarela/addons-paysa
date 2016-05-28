@@ -47,7 +47,7 @@
                                                             <td>
                                                                 <strong t-if="penca.puntos_total"
                                                                         t-field="penca.puntos_total"/>
-                                                                <strong t-if="not penca.puntos_total">0</strong>
+                                                                <!--<strong t-if="not penca.puntos_total">0</strong>-->
                                                             </td>
                                                         </tr>
                                                     </t>
