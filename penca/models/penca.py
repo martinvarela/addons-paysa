@@ -154,7 +154,7 @@ class Resultado(models.Model):
     esc2_rel = fields.Binary(string="Escudo2", related="partido_id.equipo2_id.escudo")
     #goles2 = fields.Integer(string="Gol2", size=1)
     goles2 = fields.Selection(string="Gol2", selection=_LISTA_GOLES)
-    puntos = fields.Integer(string="Puntaje Partido", size=2)
+    puntos = fields.Integer(string="Puntaje Partido", size=2, readonly=True)
     editable = fields.Boolean(string="Editable", compute="_editable")
 
     @api.multi
@@ -211,8 +211,8 @@ class Penca(models.Model):
 
     name = fields.Char(string="Nombre", compute="_obtener_nombre", store="True")
     puntos_total = fields.Integer(string="Puntaje", compute="_calc_ptje", search="_search_ptje")
-    pts_campeon = fields.Integer(string="Puntos Campeon")
-    pts_goleador = fields.Integer(string="Puntos Goleador")
+    pts_campeon = fields.Integer(string="Puntos Campeon", readonly=True)
+    pts_goleador = fields.Integer(string="Puntos Goleador", readonly=True)
     goleador_id = fields.Many2one(comodel_name="penca.goleador", string="Goleador")
     goleador_foto_rel = fields.Binary(string="Foto", related="goleador_id.foto")
     otro_goleador = fields.Char(string="Otro", help="Escriba el nombre")
@@ -222,6 +222,15 @@ class Penca(models.Model):
     resultado_ids = fields.One2many(comodel_name="penca.resultado", inverse_name="penca_id", string="Resultados")
     camp_gol_edit = fields.Boolean(string="Editar camp y gol", compute="_camp_gol_edit")
 
+    @api.multi
+    def write(self, vals):
+        if vals.get('goleador_id',False) or vals.get('campeon_id',False):
+            fecha_limite = datetime.strptime("2016-06-04 00:00", "%Y-%m-%d %H:%M")
+            fecha_actual = datetime.now()
+            es_editable = fecha_actual < fecha_limite
+            if not es_editable:
+                        raise except_orm(_('Error!'), _(u'Ya pasó la fecha límite para ingresar campeón y goleador'))
+        return super(Penca, self).write(vals)
 
 class CampeonGoleador(models.Model):
     _name = 'penca.campeon_goleador'
