@@ -10,7 +10,7 @@
             <field name="name">penca.penca</field>
             <field name="model">penca.penca</field>
             <field name="arch" type="xml">
-                <form string="Penca">
+                <form string="Penca" create="false">
                     <sheet>
                         <group>
                             <group>

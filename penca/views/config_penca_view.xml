@@ -48,7 +48,7 @@
             <field name="name">penca.partido</field>
             <field name="model">penca.partido</field>
             <field name="arch" type="xml">
-                <form string="Partidos">
+                <form string="Partidos" create="false" delete="false">
                     <sheet>
                         <group>
                             <field name="name"/>
@@ -234,7 +234,7 @@
             <field name="view_id" ref="penca_reglas_form"/>
         </record>
 
-        <menuitem id="menu_reglamento" name="Reglamento" parent="menu_penca_penca" sequence="1"/>
+        <menuitem id="menu_reglamento" name="Reglamento" parent="menu_penca_penca" sequence="6"/>
         <menuitem id="penca_reglas" name="Reglamento" parent="menu_reglamento" action="reglas_action"/>
 
         <record model="ir.ui.view" id="view_posiciones_tree">

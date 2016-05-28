@@ -11,3 +11,9 @@ access_penca_goleador_admin,penca_goleador admin,model_penca_goleador,group_admi
 access_penca_equipo_public,penca_equipo public,model_penca_equipo,base.group_public,1,0,0,0
 access_penca_equipo_usuario,penca_equipo usuario,model_penca_equipo,group_usuario_penca,1,0,0,0
 access_penca_equipo_admin,penca_equipo admin,model_penca_equipo,group_admin_penca,1,1,0,0
+access_penca_partido_public,penca_partido public,model_penca_partido,base.group_public,1,0,0,0
+access_penca_partido_usuario,penca_partido usuario,model_penca_partido,group_usuario_penca,1,0,0,0
+access_penca_partido_admin,penca_partido admin,model_penca_partido,group_admin_penca,1,1,1,1
+access_penca_campeon_goleador_admin,penca_campeon_goleador admin,model_penca_campeon_goleador,group_admin_penca,1,1,1,1
+access_penca_reglas_all,penca_reglas all,model_penca_reglas,,1,0,0,0
+access_penca_posiciones_all,penca_posiciones all,model_penca_posiciones,,1,0,0,0
