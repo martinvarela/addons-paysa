@@ -302,6 +302,7 @@
                         <group colspan="3">
                             <field name="name"/>
                             <field name="goles"/>
+                            <field name="puntos" readonly="1"/>
                             <field name="equipo_id"/>
                         </group>
                     </sheet>
@@ -317,6 +318,7 @@
                     <field name="name"/>
                     <field name="foto" widget="image" height="25"/>
                     <field name="goles"/>
+                    <field name="puntos" readonly="1"/>
                     <field name="equipo_id"/>
                 </tree>
             </field>

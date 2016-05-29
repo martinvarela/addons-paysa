@@ -63,7 +63,7 @@ class Partido(models.Model):
             else:
                 rec.name = rec.equipo1_id.name + ' vs ' + rec.equipo2_id.name
 
-    def obtener_puntos(self, resultado, partido):
+    def obtener_puntos_old(self, resultado, partido):
         #No cargo alguno de los goles
         if not resultado.goles1 or not resultado.goles2:
             return 0
@@ -96,6 +96,33 @@ class Partido(models.Model):
         else:
             #nada
             return 0
+
+    def obtener_puntos(self, resultado, partido):
+        puntos = 0
+        #No cargo alguno de los goles
+        if not resultado.goles1 or not resultado.goles2:
+            return puntos
+        #resultado exacto
+        if resultado.goles1 == partido.goles_eq1 and resultado.goles2 == partido.goles_eq2:
+            puntos += 10
+        #empate
+        elif resultado.goles1 == resultado.goles2 and partido.goles_eq1 == partido.goles_eq2:
+            puntos += 5
+        #gano1
+        elif ((int(resultado.goles1) - int(resultado.goles2)) > 0) and ((int(partido.goles_eq1) - int(partido.goles_eq2)) > 0):
+            puntos += 5
+        #gano2
+        elif ((int(resultado.goles1) - int(resultado.goles2)) < 0) and ((int(partido.goles_eq1) - int(partido.goles_eq2)) < 0):
+            puntos += 5
+
+        #sumo puntos por goles1
+        if (resultado.goles1 == partido.goles_eq1):
+            puntos += int(partido.goles_eq1)
+        #sumo puntos por goles2
+        if (resultado.goles2 == partido.goles_eq2):
+            puntos += int(partido.goles_eq2)
+
+        return puntos
 
     @api.multi
     def write(self, vals):
@@ -332,10 +359,16 @@ class Goleador(models.Model):
     _description = "Goleador"
     _order = 'goles desc'
 
+    @api.depends('goles')
+    def _get_puntos(self):
+        for rec in self:
+            rec.puntos = rec.goles * 10
+
     name = fields.Char(string="Nombre", required=True, size=50 )
     foto = fields.Binary(string="Foto")
     goles = fields.Integer(string="Goles")
     equipo_id = fields.Many2one(comodel_name="penca.equipo", string="Equipo")
+    puntos = fields.Integer(string="Puntos", compute=_get_puntos, store=True)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
