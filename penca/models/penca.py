@@ -273,38 +273,38 @@ class Penca(models.Model):
                         raise except_orm(_('Error!'), _(u'Ya pasó la fecha límite para ingresar campeón y goleador'))
         return super(Penca, self).write(vals)
 
-class CampeonGoleador(models.Model):
-    _name = 'penca.campeon_goleador'
-    _description = "Campeon y Goleador"
-    #_rec_name = 'campeon_id'
-
-    campeon_id = fields.Many2one(comodel_name="penca.equipo", string=u"Campeón")
-    goleador_ids = fields.Many2many(comodel_name="penca.goleador", relation="penca_goleador_rel", column1="campeon_goleador_id", column2="goleador_id", string="Goleadores")
-    fin = fields.Boolean(string="Finalizo")
-
-    @api.multi
-    def write(self, vals):
-        super(CampeonGoleador, self).write(vals)
-        penca_obj = self.env['penca.penca']
-
-        #obtengo el goleador y el campeon
-        for camp_gol in self:
-            if camp_gol.fin:
-                #actualizo todas las pencas
-                for penca in penca_obj.search([]):
-                    p_camp = 0
-                    p_gol = 0                     
-                    if camp_gol.campeon_id.id == penca.campeon_id.id:
-                        p_camp = 20
-                    for goleador in camp_gol.goleador_ids:
-                        if goleador.id == penca.goleador_id.id:
-                            p_gol = 15
-                    if p_camp > 0 or p_gol > 0:
-                        penca.write({'pts_campeon': p_camp, 'pts_goleador': p_gol})
-            elif 'fin' in vals and vals['fin'] == False:
-                penca_ids = penca_obj.search([])
-                penca_ids.write({'pts_campeon': 0, 'pts_goleador': 0})
-        return True
+# class CampeonGoleador(models.Model):
+#     _name = 'penca.campeon_goleador'
+#     _description = "Campeon y Goleador"
+#     #_rec_name = 'campeon_id'
+#
+#     campeon_id = fields.Many2one(comodel_name="penca.equipo", string=u"Campeón")
+#     goleador_ids = fields.Many2many(comodel_name="penca.goleador", relation="penca_goleador_rel", column1="campeon_goleador_id", column2="goleador_id", string="Goleadores")
+#     fin = fields.Boolean(string="Finalizo")
+#
+#     @api.multi
+#     def write(self, vals):
+#         super(CampeonGoleador, self).write(vals)
+#         penca_obj = self.env['penca.penca']
+#
+#         #obtengo el goleador y el campeon
+#         for camp_gol in self:
+#             if camp_gol.fin:
+#                 #actualizo todas las pencas
+#                 for penca in penca_obj.search([]):
+#                     p_camp = 0
+#                     p_gol = 0
+#                     if camp_gol.campeon_id.id == penca.campeon_id.id:
+#                         p_camp = 20
+#                     for goleador in camp_gol.goleador_ids:
+#                         if goleador.id == penca.goleador_id.id:
+#                             p_gol = 15
+#                     if p_camp > 0 or p_gol > 0:
+#                         penca.write({'pts_campeon': p_camp, 'pts_goleador': p_gol})
+#             elif 'fin' in vals and vals['fin'] == False:
+#                 penca_ids = penca_obj.search([])
+#                 penca_ids.write({'pts_campeon': 0, 'pts_goleador': 0})
+#         return True
 
 class Usuario(models.Model):
     _inherit = 'res.users'

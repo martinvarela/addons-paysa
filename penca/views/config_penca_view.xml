@@ -266,6 +266,7 @@
         <menuitem id="menu_posiciones" name="Posiciones" parent="menu_penca_penca" sequence="3"/>
         <menuitem action="posiciones_action_list" id="menu_posiciones_list" parent="menu_posiciones"/>
 
+<!--
         <record model="ir.ui.view" id="view_camp_gol_form">
             <field name="name">penca.campeon_goleador</field>
             <field name="model">penca.campeon_goleador</field>
@@ -281,7 +282,9 @@
                 </form>
             </field>
         </record>
+-->
 
+<!--
         <record model="ir.actions.act_window" id="camp_gol_action">
             <field name="name">Campeon y Goleador</field>
             <field name="res_model">penca.campeon_goleador</field>
@@ -289,8 +292,11 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_camp_gol_form"/>
         </record>
+-->
 
+<!--
         <menuitem action="camp_gol_action" id="menu_camp_gol" parent="menu_penca_config" sequence="3"/>
+-->
 
         <record model="ir.ui.view" id="view_goleadores_form">
             <field name="name">penca.goleador</field>
