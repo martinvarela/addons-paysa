@@ -43,6 +43,9 @@
                                 <field name="goleador_foto_rel" readonly="1" widget="image" class="oe_avatar"
                                        nolabel="1"/>
                             </group>
+                            <group>
+                                <field name="active" groups="base.group_no_one,penca.group_admin_penca"/>
+                            </group>
                             <group string="Partidos" colspan="4">
                                 <field name="resultado_ids" colspan="4" nolabel="1">
                                     <tree string="Partidos" editable="bottom" create="false" delete="false">

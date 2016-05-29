@@ -221,6 +221,7 @@ class Penca(models.Model):
     user_id = fields.Many2one(comodel_name="res.users", string="Usuario")
     resultado_ids = fields.One2many(comodel_name="penca.resultado", inverse_name="penca_id", string="Resultados")
     camp_gol_edit = fields.Boolean(string="Editar camp y gol", compute="_camp_gol_edit")
+    active = fields.Boolean(string="Activa", default=True)
 
     @api.multi
     def write(self, vals):

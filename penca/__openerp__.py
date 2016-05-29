@@ -27,7 +27,7 @@
 #OK: mejorar creacion de pencas automatico
 #TODO: revisar criterio de puntos, campeon, goleador y partido, darle mas importancia a un 4 a 2 que a un 1 a 0
 #TESTEAR: validacion de que no hagan trampa readonly al guardar
-#TODO: Ocultar menus mensajeria e informes
+#TESTEAR: SOlo falta filtrar menus del sitio web. Ocultar menus mensajeria e informes
 #TESTEAR: (Se resuelve con form vacio) desde la tree de los resultados de la penca se puede abrir la form y editar los campos y deja editar los puntos y goles
 {
     'name': 'Penca Copa America Centenario - Pay 2016',
