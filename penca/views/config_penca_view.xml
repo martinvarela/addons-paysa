@@ -100,6 +100,7 @@
                   parent="menu_penca_config" sequence="2"/>
 
         <!-- Reglamento -->
+<!--
         <record id="penca_reglas_form" model="ir.ui.view">
             <field name="name">penca.reglas.form</field>
             <field name="model">penca.reglas</field>
@@ -137,29 +138,29 @@
                                 los 90 minutos reglamentarios (sin alargue ni penales).
                                 <BR/>
                                 <BR/>
-                                Ejemplo 1: Brasil 3 - Croacia 1
+                                Ejemplo 1: Brasil 3 - Ecuador 1
                                 <BR/>
-                                - Quien pronosticó Brasil 3 - Croacia 1, obtiene 6 puntos por ese partido.
+                                - Quien pronosticó Brasil 3 - Ecuador 1, obtiene 6 puntos por ese partido.
                                 <BR/>
-                                - Quien pronosticó Brasil 3 - Croacia 0 ó Brasil 2 - Croacia 1, obtiene 4 puntos por ese
+                                - Quien pronosticó Brasil 3 - Ecuador 0 ó Brasil 2 - Ecuador 1, obtiene 4 puntos por ese
                                 partido.
                                 <BR/>
-                                - Quien pronosticó Brasil 2 - Croacia 0, obtiene 4 puntos por ese partido (resultado +
+                                - Quien pronosticó Brasil 2 - Ecuador 0, obtiene 4 puntos por ese partido (resultado +
                                 diferencia de goles).
                                 <BR/>
-                                - Quien pronosticó Brasil 1 - Croacia 0, obtiene 3 puntos por ese partido.
+                                - Quien pronosticó Brasil 1 - Ecuador 0, obtiene 3 puntos por ese partido.
                                 <BR/>
-                                - Quien pronosticó Brasil 0 - Croacia 1 ó Brasil 3 - Croacia 4, obtiene 1 punto por ese
+                                - Quien pronosticó Brasil 0 - Ecuador 1 ó Brasil 3 - Ecuador 4, obtiene 1 punto por ese
                                 partido.
                                 <BR/>
-                                - Quien pronosticó Brasil 0 - Croacia 2, obtiene 0 puntos por ese partido.
+                                - Quien pronosticó Brasil 0 - Ecuador 2, obtiene 0 puntos por ese partido.
                                 <BR/>
                                 <BR/>
-                                Ejemplo 2: Chile 1 - Australia 1
+                                Ejemplo 2: Chile 1 - Bolivia 1
                                 <BR/>
-                                - Quien pronosticó Chile 1 - Australia 1, obtiene 6 puntos por ese partido.
+                                - Quien pronosticó Chile 1 - Bolivia 1, obtiene 6 puntos por ese partido.
                                 <BR/>
-                                - Quien pronosticó Chile 2 - Australia 2, obtiene 4 puntos por ese partido (resultado +
+                                - Quien pronosticó Chile 2 - Bolivia 2, obtiene 4 puntos por ese partido (resultado +
                                 diferencia de goles).
                                 <BR/>
                                 <BR/>
@@ -220,6 +221,128 @@
                             <BR/>
                             <b>Ante cualquier duda enviar mail a
                                 <a href="mailto:pencapaysa2014@gmail.com">pencapaysa2014@gmail.com</a>
+                            </b>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+-->
+
+        <!-- Reglamento -->
+        <record id="penca_reglas_form" model="ir.ui.view">
+            <field name="name">penca.reglas.form</field>
+            <field name="model">penca.reglas</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form create="false" save="false" string="Reglamento" version="7.0">
+                    <header>
+                        <separator colspan="5" string="*  Reglamento  *"/>
+                    </header>
+                    <sheet>
+                        <div>
+                            <h2>
+                                <label string="Puntuación"/>
+                            </h2>
+                            <p>
+                                <h3>Partidos</h3>
+                                <UL type="disc">
+                                    <LI>Resultado:
+                                        <b>5 puntos</b>
+                                    </LI>
+                                    <LI>Resultado exacto:
+                                        <b>10 puntos</b>
+                                    </LI>
+                                    <LI>Puntos extra:
+                                        <b>Además de los puntos por resultado y resultado exacto, si se acierta la cantidad de goles del equipo, se suman esos goles como puntos extra. (Ver ejemplos)</b>
+                                    </LI>
+                                </UL>
+                                <i>* NOTA:</i>Para la etapa eliminatoria se tiene en cuenta el resultado al finalizar
+                                los 90 minutos reglamentarios (sin alargue ni penales).
+                                <BR/>
+                                <BR/>
+                                Ejemplo 1: <b>Brasil 3 - Ecuador 1</b>
+                                <BR/>
+                                - Quien pronosticó Brasil 3 - Ecuador 1, obtiene 14 puntos por ese partido (10 por resultado exacto + 4 por goles de ambos equipos).
+                                <BR/>
+                                - Quien pronosticó Brasil 3 - Ecuador 0, obtiene 8 puntos por ese partido (5 por resultado + 3 por goles de Brasil).
+                                <BR/>
+                                - Quien pronosticó Brasil 2 - Ecuador 1, obtiene 6 puntos por ese partido (5 por resultado + 1 por goles Ecuador).
+                                <BR/>
+                                - Quien pronosticó Brasil 2 - Ecuador 0, obtiene 5 puntos por ese partido (resultado).
+                                <BR/>
+                                - Quien pronosticó Brasil 0 - Ecuador 1, obtiene 1 punto por ese partido (goles Ecuador).
+                                <BR/>
+                                - Quien pronosticó Brasil 3 - Ecuador 4, obtiene 3 puntos por ese partido (goles Brasil).
+                                <BR/>
+                                - Quien pronosticó Brasil 0 - Ecuador 2, obtiene 0 puntos por ese partido.
+                                <BR/>
+                                <BR/>
+                                Ejemplo 2: <b>Chile 1 - Bolivia 1</b>
+                                <BR/>
+                                - Quien pronosticó Chile 1 - Bolivia 1, obtiene 12 puntos por ese partido (10 por resultado exacto + 2 por goles de ambos equipos).
+                                <BR/>
+                                - Quien pronosticó Chile 2 - Bolivia 2, obtiene 5 puntos por ese partido (resultado).
+                                <BR/>
+                                - Quien pronosticó Chile 1 - Bolivia 0, obtiene 1 punto por ese partido (goles Chile).
+                                <BR/>
+                                <BR/>
+                                <h3>Campeón</h3>
+                                <UL type="disc">
+                                    <LI>Si el equipo seleccionado es campeón:
+                                        <b>40 puntos</b>
+                                    </LI>
+                                    <LI>Si el equipo seleccionado es finalista:
+                                        <b>20 puntos</b>
+                                    </LI>
+                                    <LI>Si el equipo seleccionado es semi-finalista:
+                                        <b>10 puntos</b>
+                                    </LI>
+                                </UL>
+                                <BR/>
+                                <h3>Goleador</h3>
+                                <UL type="disc">
+                                    <LI>Se sumarán <b>10 puntos por cada gol</b> que anote el jugador seleccionado. (No es necesario que termine como goleador)
+                                        <BR/>
+                                    </LI>
+                                </UL>
+                                <i>* NOTA:</i>La fecha límite para completar los resultados es 3 horas antes de cada partido.
+                                              Para el campeón y goleador la fecha límite es 3 horas antes del comienzo del primero partido.
+                                <BR/>
+                                <BR/>
+                            </p>
+                            <h2>
+                                <label string="Premios"/>
+                            </h2>
+                            <ul>
+                                <li><b>1°</b>: $3000
+                                </li>
+                                <li><b>2°</b>: $2000
+                                </li>
+                                <li><b>3°</b>: $1000
+                                </li>
+                            </ul>
+
+                            <b>En caso de empate</b>, el ganador será elegido de la siguiente manera:
+                            <ol>
+                                <li>Ganará el que acierte mayor cantidad de resultados exactos</li>
+                                <li>Ganará el que acierte mayor cantidad de resultados</li>
+                                <li>En caso de subsistir el empate se repartirán los premios de igual manera entre las
+                                    posiciones igualadas
+                                </li>
+                            </ol>
+
+                            <h2>
+                                <label string="Costo"/>
+                            </h2>
+                            <ul>
+                                <li>El costo de participación por penca es de
+                                    <b>$100</b>
+                                </li>
+                            </ul>
+                            <BR/>
+                            <b>Ante cualquier duda enviar mail a
+                                <a href="mailto:paysanduuniversitario@gmail.com">paysanduuniversitario@gmail.com</a>
                             </b>
                         </div>
                     </sheet>
