@@ -48,6 +48,19 @@ class Equipo(models.Model):
 
     name = fields.Char(string="Equipo", size=40, required=True)
     escudo = fields.Binary(string="Escudo")
+    puntos = fields.Integer("Puntos")
+
+    @api.multi
+    def write(self, vals):
+        super(Equipo, self).write(vals)
+        penca_obj = self.env['penca.penca']
+        #obtengo el goleador y el campeon
+        for equipo in self:
+            #actualizo todas las pencas que tengan al campeon
+            pencas = penca_obj.search([('campeon_id', '=', equipo.id)])
+            pencas.write({'pts_campeon': equipo.puntos})
+        return True
+
 
 
 class Partido(models.Model):
@@ -369,6 +382,18 @@ class Goleador(models.Model):
     goles = fields.Integer(string="Goles")
     equipo_id = fields.Many2one(comodel_name="penca.equipo", string="Equipo")
     puntos = fields.Integer(string="Puntos", compute=_get_puntos, store=True)
+
+    @api.multi
+    def write(self, vals):
+        super(Goleador, self).write(vals)
+        penca_obj = self.env['penca.penca']
+        #obtengo el goleador y el campeon
+        for goleador in self:
+            #actualizo todas las pencas que tengan al goleador
+            pencas = penca_obj.search([('goleador_id', '=', goleador.id)])
+            pencas.write({'pts_goleador': goleador.puntos})
+        return True
+
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
