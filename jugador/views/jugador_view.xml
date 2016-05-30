@@ -36,12 +36,14 @@
                                     <group string="Datos Jugador">
                                         <field name="posicion"/>
                                         <field name="plantel"/>
+                                        <field name="nro_carne"/>
                                         <field name="vencimiento_carne"/>
                                         <field name="vencimiento_ficha_medica"/>
                                         <field name="ultimo_examen"/>
                                         <field name="website_published"/>
                                     </group>
                                     <group string="Información Personal">
+                                        <field name="cedula"/>
                                         <field name="fecha_nacimiento"/>
                                         <field name="telefono"/>
                                         <field name="direccion"/>

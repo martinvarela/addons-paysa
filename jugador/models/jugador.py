@@ -18,6 +18,8 @@ class Jugador(models.Model):
     website_published = fields.Boolean(string="Publicado en sitio web")
     image_medium = fields.Binary(string="Foto")
     notes = fields.Text(string="Notas")
+    cedula = fields.Char(string=u"Nro cédula")
+    nro_carne = fields.Char(string=u"Nro carné")
 
     @api.model
     def create(self, values):
