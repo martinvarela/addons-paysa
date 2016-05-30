@@ -11,7 +11,8 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12 text-center mt0 mb0">
-                                        <h2>Posiciones Penca</h2>
+                                        <h2>Penca</h2>
+                                        <a class="btn btn-primary" t-att-href="'/web#menu_id=%s&amp;action=%s' % (%(penca.menu_penca_pronostico1)d, %(penca.action_penca_penca_form)d)">Ir a mi penca</a>
                                     </div>
                                 </div>
                             </div>

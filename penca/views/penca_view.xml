@@ -7,7 +7,7 @@
         <menuitem id="menu_penca_pronostico" name="Penca" parent="menu_penca_penca" sequence="2"/>
 
         <record model="ir.ui.view" id="view_penca_penca_form">
-            <field name="name">penca.penca</field>
+            <field name="name">penca.penca.form</field>
             <field name="model">penca.penca</field>
             <field name="arch" type="xml">
                 <form string="Penca" create="false">
@@ -69,13 +69,26 @@
         </record>
 
         <record model="ir.ui.view" id="view_penca_penca_tree">
-            <field name="name">penca.penca</field>
+            <field name="name">penca.penca.tree</field>
             <field name="model">penca.penca</field>
             <field name="arch" type="xml">
                 <tree string="Penca">
                     <field name="user_id"/>
                     <field name="puntos_total"/>
                 </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_penca_penca_search">
+            <field name="name">penca.penca.search</field>
+            <field name="model">penca.penca</field>
+            <field name="arch" type="xml">
+                <search string="Penca">
+                    <field name="user_id"/>
+                    <field name="campeon_id"/>
+                    <field name="goleador_id"/>
+                    <filter string="Mi Penca" name="mi_penca" icon="terp-personal" domain="[('user_id','=', uid)]"/>
+                </search>
             </field>
         </record>
 
@@ -86,6 +99,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_penca_penca_tree"/>
+            <field name="context">{'search_default_mi_penca': 1}</field>
         </record>
 
         <menuitem id="menu_penca_pronostico1" action="action_penca_penca_form" name="Mi Penca"
