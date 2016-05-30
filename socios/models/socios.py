@@ -13,8 +13,8 @@ class Socios(models.Model):
             record.name = (record.nro_socio or '') + ' - ' + (record.nombre or '')
 
     name = fields.Char(string="Nro - Nombre", compute='_compute_name', store=True)
-    nro_socio = fields.Char(string=u"Número")
-    nombre = fields.Char(string="Nombre", required=True)
+    nro_socio = fields.Char(string=u"Número", required=True)
+    nombre = fields.Char(string="Nombre")
     direccion = fields.Char(string=u"Dirección")
     cedula = fields.Char(string=u"Cédula")
     celular = fields.Char(string="Celular")
